@@ -1,3 +1,47 @@
+/* 1) Коректний бокс-модуль */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* 2) База сторінки */
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    /* ← важливо, прибирає дефолтний відступ */
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* 3) Медіа-елементи */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+svg {
+    vertical-align: middle;
+}
+
+/* 4) Списки, типографіка */
+ul,
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 h1,
 h2,
 h3,
@@ -5,30 +49,106 @@ h4,
 h5,
 h6,
 p {
-  margin: 0;
+    margin: 0;
 }
 
-p:last-child {
-  margin-bottom: 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
+/* 5) Посилання */
 a {
-  color: currentColor;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
+    text-decoration-skip-ink: auto;
 }
 
-button {
-  cursor: pointer;
+/* 6) Форми */
+button,
+input,
+select,
+textarea {
+    font: inherit;
+    color: inherit;
+    margin: 0;
+}
+
+button,
+[type='button'],
+[type='submit'] {
+    cursor: pointer;
+}
+
+
+
+
+
+/* #region  reset*/
+a {
+    text-decoration: none;
+}
+
+ol,
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
 }
 
 img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* #region  reset*/
+a {
+    text-decoration: none;
+}
+
+ol,
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* #endregion */
+
+
+
+address {
+    display: block;
+    font-style: normal;
+    unicode-bidi: normal;
 }
