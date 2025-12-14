@@ -1,12 +1,100 @@
-// var swiper = new Swiper('.mySwiper', {
-//   spaceBetween: 30,
-//   effect: 'fade',
-//   navigation: {
-//     nextEl: '.about-us-swiper-button-next',
-//     prevEl: '.about-us-swiper-swiper-button-prev',
-//   },
-//   pagination: {
-//     el: '.about-us-swiper-pagination',
-//     clickable: true,
-//   },
-// });
+import mobile1 from '../img/about-us/webp/mobile/mobile-slide-1-min.webp';
+import mobile1x2 from '../img/about-us/webp/mobile/mobile-slide-1@2x-min.webp';
+import mobile2 from '../img/about-us/webp/mobile/mobile-slide-2-min.webp';
+import mobile2x2 from '../img/about-us/webp/mobile/mobile-slide-2@2x-min.webp';
+import mobile3 from '../img/about-us/webp/mobile/mobile-slide-3-min.webp';
+import mobile3x2 from '../img/about-us/webp/mobile/mobile-slide-3@2x-min.webp';
+import mobile4 from '../img/about-us/webp/mobile/mobile-slide-4-min.webp';
+import mobile4x2 from '../img/about-us/webp/mobile/mobile-slide-4@2x-min.webp';
+import mobile5 from '../img/about-us/webp/mobile/mobile-slide-5-min.webp';
+import mobile5x2 from '../img/about-us/webp/mobile/mobile-slide-5@2x-min.webp';
+
+import tablet1 from '../img/about-us/webp/tablet/tablet-slide-1-min.webp';
+import tablet1x2 from '../img/about-us/webp/tablet/tablet-slide-1@2x-min.webp';
+import tablet2 from '../img/about-us/webp/tablet/tablet-slide-2-min.webp';
+import tablet2x2 from '../img/about-us/webp/tablet/tablet-slide-2@2x-min.webp';
+import tablet3 from '../img/about-us/webp/tablet/tablet-slide-3-min.webp';
+import tablet3x2 from '../img/about-us/webp/tablet/tablet-slide-3@2x-min.webp';
+import tablet4 from '../img/about-us/webp/tablet/tablet-slide-4-min.webp';
+import tablet4x2 from '../img/about-us/webp/tablet/tablet-slide-4@2x-min.webp';
+import tablet5 from '../img/about-us/webp/tablet/tablet-slide-5-min.webp';
+import tablet5x2 from '../img/about-us/webp/tablet/tablet-slide-5@2x-min.webp';
+
+import desktop1 from '../img/about-us/webp/desktop/desktop-slide-1-min.webp';
+import desktop1x2 from '../img/about-us/webp/desktop/desktop-slide-1@2x-min.webp';
+import desktop2 from '../img/about-us/webp/desktop/desktop-slide-2-min.webp';
+import desktop2x2 from '../img/about-us/webp/desktop/desktop-slide-2@2x-min.webp';
+import desktop3 from '../img/about-us/webp/desktop/desktop-slide-3-min.webp';
+import desktop3x2 from '../img/about-us/webp/desktop/desktop-slide-3@2x-min.webp';
+import desktop4 from '../img/about-us/webp/desktop/desktop-slide-4-min.webp';
+import desktop4x2 from '../img/about-us/webp/desktop/desktop-slide-4@2x-min.webp';
+import desktop5 from '../img/about-us/webp/desktop/desktop-slide-5-min.webp';
+import desktop5x2 from '../img/about-us/webp/desktop/desktop-slide-5@2x-min.webp';
+
+const slides = [
+  {
+    mob: `${mobile1} 1x, ${mobile1x2} 2x`,
+    tab: `${tablet1} 1x, ${tablet1x2} 2x`,
+    desk: `${desktop1} 1x, ${desktop1x2} 2x`,
+  },
+  {
+    mob: `${mobile2} 1x, ${mobile2x2} 2x`,
+    tab: `${tablet2} 1x, ${tablet2x2} 2x`,
+    desk: `${desktop2} 1x, ${desktop2x2} 2x`,
+  },
+  {
+    mob: `${mobile3} 1x, ${mobile3x2} 2x`,
+    tab: `${tablet3} 1x, ${tablet3x2} 2x`,
+    desk: `${desktop3} 1x, ${desktop3x2} 2x`,
+  },
+  {
+    mob: `${mobile4} 1x, ${mobile4x2} 2x`,
+    tab: `${tablet4} 1x, ${tablet4x2} 2x`,
+    desk: `${desktop4} 1x, ${desktop4x2} 2x`,
+  },
+  {
+    mob: `${mobile5} 1x, ${mobile5x2} 2x`,
+    tab: `${tablet5} 1x, ${tablet5x2} 2x`,
+    desk: `${desktop5} 1x, ${desktop5x2} 2x`,
+  },
+];
+
+import Swiper from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+const swiperSlides = document.querySelectorAll('.about-swiper .swiper-slide');
+
+swiperSlides.forEach((slide, index) => {
+  const picture = slide.querySelector('picture');
+  picture.querySelector('.img-desktop').srcset = slides[index].desk;
+  picture.querySelector('.img-tablet').srcset = slides[index].tab;
+  picture.querySelector('.img-mobile').srcset = slides[index].mob;
+});
+
+const aboutSwiper = new Swiper('.about-swiper', {
+  loop: true,
+  slidesPerView: 1,
+  spaceBetween: 20,
+
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+
+  breakpoints: {
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 30,
+    },
+    1440: {
+      slidesPerView: 3,
+      spaceBetween: 40,
+    },
+  },
+});
