@@ -1,6 +1,6 @@
 /* Default styles */
 @import url('./reset.css');
-@import url('./defoult.css');
+@import url('./default.css');
 @import url('./fonts.css');
 
 /* Partials */
@@ -13,4 +13,3 @@
 @import url('./animal-details.css');
 @import url('./order-modal.css');
 @import url('./footer.css');
-
