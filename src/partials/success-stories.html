@@ -4,7 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>success-stories</title>
+
+    <!-- Swiper CSS (CDN) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
   </head>
+
   <body>
     <section class="success-stories-section">
       <div class="success-stories container">
@@ -16,12 +23,23 @@
           </p>
         </div>
 
-        <div class="success-content">
-          <ul class="feedbacks-list"></ul>
+        <div class="success-content swiper">
+          <ul class="feedbacks-list swiper-wrapper"></ul>
         </div>
-        <div class="success-swiper"></div>
+
+        <!-- Елементи керування свайпера (пагинація + кнопки) -->
+        <div class="success-swiper">
+          <button type="button"></button>
+          <button type="button"></button>
+          <div class="swiper-pagination"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
       </div>
     </section>
+
+    <!-- Swiper JS (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script type="module" src="../js/success-stories.js"></script>
   </body>
