@@ -18,6 +18,7 @@ const refs = {
     commentMsg: document.querySelector('#commentMsg'),
     submitBtn: document.querySelector('.send-form-btn'),
     animalId: "667ad1b8e4b01a2b3c4d5e55",
+    loader: document.querySelector('.loader'),
 };
 
 console.log("refs", refs);
@@ -65,6 +66,14 @@ document.addEventListener('keydown', (e) => {
     closeModal();
   }
 });
+
+function showLoader() {
+    refs.loader.classList.remove('hidden');
+}
+
+function hideLoader() {
+    refs.loader.classList.add('hidden');
+}
 
 // checking length all fields
 function updateSubmitBtn() {
@@ -122,11 +131,6 @@ refs.inputPhone.addEventListener('input', (e) => {
         refs.phoneMsg.textContent = '';
         e.target.classList.remove('error');
     }   
-    
-    // const cleaned = e.target.value.replace(/\D/g, '');
-    // refs.phoneMsg.textContent = e.target.value !== cleaned ? 'Можна вводити тільки цифри' : '';
-    // e.target.classList.toggle('error', e.target.value !== cleaned);
-    // e.target.value = cleaned;
     updateSubmitBtn();
 });
 
@@ -153,18 +157,17 @@ refs.form.addEventListener("submit", async (e) => {
     console.log("formData", formData);
 
     try {
-        const response = await axios.post('https://paw-hut.b.goit.study/api/orders', {
-  "name": "Петро Іванович",
-  "phone": "3809634568",
-  "animalId": "667ad1b8e4b01a2b3c4d5e55",
-  "comment": "щшрщщжрщжшрщшрщш"
-});
+        showLoader();
+        const response = await axios.post('https://paw-hut.b.goit.study/api/orders', formData);
+        
+        hideLoader();
+
         const orderData = response.data;
         iziToast.success({
             title: 'OK',
             message: 'Форма успішно відправлена',
             position: 'center',
-            timeout: 10000,
+            timeout: 5000,
             backgroundColor:'#EEE9E3', 
             titleColor: '#22c55e',
             messageColor: '#02060A',
@@ -176,11 +179,12 @@ refs.form.addEventListener("submit", async (e) => {
         closeModal();
     }
     catch (err) {
+        hideLoader();
         iziToast.error({
             title: 'ПОМИЛКА!',
             message: err?.response?.data?.message || err.message || 'Не вдалося відправити форму',
             position: 'center',
-            timeout: 10000,
+            timeout: 5000,
             backgroundColor:'#EEE9E3', 
             titleColor: '#ae0000',
             messageColor: '#02060A',
