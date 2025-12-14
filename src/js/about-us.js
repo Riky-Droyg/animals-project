@@ -31,8 +31,8 @@ import desktop4x2 from '../img/about-us/webp/desktop/desktop-slide-4@2x-min.webp
 import desktop5 from '../img/about-us/webp/desktop/desktop-slide-5-min.webp';
 import desktop5x2 from '../img/about-us/webp/desktop/desktop-slide-5@2x-min.webp';
 
-import arrowLeft from '../img/about-us/svg/arrow-left.svg';
-import arrowRight from '../img/about-us/svg/arrow-right.svg';
+import arrowLeft from '../img/SVG-sprite/arrow-left.svg';
+import arrowRight from '../img/SVG-sprite/arrow-right.svg';
 
 const slides = [
   {

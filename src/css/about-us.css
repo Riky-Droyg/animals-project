@@ -49,13 +49,13 @@
 @media screen and (min-width: 768px) {
   .slide-text {
     font-size: 20px;
-    top: 200px; /* можна змінити під планшет */
+    top: 200px;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .slide-text {
     font-size: 22px;
-    top: 250px; /* для десктопу */
+    top: 250px;
   }
 }
