@@ -31,6 +31,9 @@ import desktop4x2 from '../img/about-us/webp/desktop/desktop-slide-4@2x-min.webp
 import desktop5 from '../img/about-us/webp/desktop/desktop-slide-5-min.webp';
 import desktop5x2 from '../img/about-us/webp/desktop/desktop-slide-5@2x-min.webp';
 
+import arrowLeft from '../img/about-us/svg/arrow-left.svg';
+import arrowRight from '../img/about-us/svg/arrow-right.svg';
+
 const slides = [
   {
     mob: `${mobile1} 1x, ${mobile1x2} 2x`,
@@ -60,6 +63,7 @@ const slides = [
 ];
 
 import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -74,27 +78,11 @@ swiperSlides.forEach((slide, index) => {
 });
 
 const aboutSwiper = new Swiper('.about-swiper', {
-  loop: true,
-  slidesPerView: 1,
-  spaceBetween: 20,
-
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-
-  breakpoints: {
-    768: {
-      slidesPerView: 2,
-      spaceBetween: 30,
-    },
-    1440: {
-      slidesPerView: 3,
-      spaceBetween: 40,
-    },
-  },
+  // configure Swiper to use modules
+  modules: [Navigation, Pagination],
 });
+
+const btnPrev = document.querySelector('.swiper-button-prev img');
+const btnNext = document.querySelector('.swiper-button-next img');
+btnPrev.src = arrowLeft;
+btnNext.src = arrowRight;
