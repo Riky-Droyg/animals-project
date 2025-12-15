@@ -1,5 +1,7 @@
 import axios from 'axios';
 import iziToast from 'izitoast';
+import Pagination from 'tui-pagination';
+import 'tui-pagination/dist/tui-pagination.css'; 
 
 /* #region  global variables */
 let ITEMS_PER_PAGE = 8;
@@ -13,20 +15,24 @@ const BREAKPOINTS = {
   tablet: 768,
   mobile: 375,
 };
-let currentCategory = '';
-let currentPage = 0;
-let totalPages = 0;
 export const refs = {
   categoriesList: document.querySelector('.js-categories'),
   animalsList: document.querySelector('.js-animals-list'),
   loader: document.querySelector('.loader'),
   loadMoreBtn: document.querySelector('.js-more-btn'),
 };
+const container = document.getElementById('tui-pagination-container');
+let currentCategory = '';
+let currentPage = 0;
+let totalPages = 0;
+let paginationInstance = null;
+let lastMode = isPaginationMode();
+
 /* #endregion */
-document.addEventListener('DOMContentLoaded', initHomepage);
-window.addEventListener('resize', handleResize);
-refs.categoriesList.addEventListener('click', handleAnimalsFilteredByCategory);
-refs.loadMoreBtn.addEventListener('click', handleLoadMoreBtnClicked);
+function isPaginationMode() {
+  return window.innerWidth >= BREAKPOINTS.tablet;
+}
+
 function setItemsPerPage() {
   const width = window.innerWidth;
   if (width >= BREAKPOINTS.desktop) {
@@ -35,76 +41,102 @@ function setItemsPerPage() {
     ITEMS_PER_PAGE = 8;
   }
 }
-let lastItemsPerPage = ITEMS_PER_PAGE;
-async function handleResize() {
-  setItemsPerPage();
-  if (ITEMS_PER_PAGE !== lastItemsPerPage) {
-    lastItemsPerPage = ITEMS_PER_PAGE;
-    currentPage = 1;
-    await loadAnimals(currentCategory, currentPage);
-    currentPage += 1;
-  }
+function createPaginationOptions(totalItems) {
+  return {
+    totalItems,
+    itemsPerPage: ITEMS_PER_PAGE,
+    visiblePages: 5,
+    page: currentPage,
+    centerAlign: true,
+  };
 }
-async function loadAnimals(category, page) {
-  showLoader();
-  try {
-    let data;
-    const targetCategory = category || currentCategory;
-    if (targetCategory === 'Всі') {
-      data = await getAnimals(page);
-    } else {
-      data = await getAnimalsByCategory(targetCategory, page);
-    }
-    const { animals, totalItems } = data;
-    totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-    renderAnimals(animals);
-    checkAndToggleLoadMoreBtn();
-  } catch (error) {
-    hideLoadMoreBtn();
-    throw error;
-  } finally {
-    hideLoader();
+
+function initPagination(totalItems) {
+  if (paginationInstance) {
+    paginationInstance.destroy();
   }
+
+  paginationInstance = new Pagination(container,
+    createPaginationOptions(totalItems)
+  );
+  paginationInstance.on('afterMove', async event => {
+    currentPage = event.page;
+    await loadAnimals(currentCategory, currentPage);
+  });
 }
 /* #region  handler-functions */
 async function initHomepage() {
   currentCategory = 'Всі';
   currentPage = 1;
   setItemsPerPage();
-  lastItemsPerPage = ITEMS_PER_PAGE;
   clearAnimals();
   showLoader();
   hideLoadMoreBtn();
+  if(!isPaginationMode()) {
+    container.classList.add('is-hidden');
+  }
+  lastMode = isPaginationMode();
   try {
     const categories = await getCategories();
     renderCategories(categories);
-    const { animals, totalItems } = await getAnimals(currentPage);
-    totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-    renderAnimals(animals);
+   const totalItems = await loadAnimals(currentCategory, currentPage); 
     updateCategoryButtons('Всі');
+ if (isPaginationMode()) {
+    container.classList.remove('is-hidden');
+    initPagination(totalItems);
+  } else {
+    container.classList.add('is-hidden');
     currentPage += 1;
     checkAndToggleLoadMoreBtn();
+  }
   } catch (error) {
     throw error;
   } finally {
     hideLoader();
   }
 }
+async function handleResize() {
+  const prevMode = lastMode;
+  setItemsPerPage();
+  const currentMode = isPaginationMode();
+
+  if (prevMode !== currentMode || ITEMS_PER_PAGE !== (paginationInstance ? paginationInstance : ITEMS_PER_PAGE)) {
+    clearAnimals();
+    currentPage = 1;
+
+    const totalItems = await loadAnimals(currentCategory, currentPage);
+
+    if (currentMode) {
+      container.classList.remove('is-hidden');
+      hideLoadMoreBtn();
+      initPagination(totalItems);
+    } else {
+      container.classList.add('is-hidden');
+      currentPage += 1;
+      checkAndToggleLoadMoreBtn();
+    }
+  }
+  lastMode = currentMode;
+}
 async function handleAnimalsFilteredByCategory(event) {
   if (event.target.nodeName !== 'BUTTON') {
     return;
   }
   setItemsPerPage();
-  lastItemsPerPage = ITEMS_PER_PAGE;
   currentPage = 1;
   clearAnimals();
   hideLoadMoreBtn();
   const category = event.target.textContent.trim();
   currentCategory = category;
   try {
-    await loadAnimals(currentCategory, currentPage);
+  const totalItems =  await loadAnimals(currentCategory, currentPage);
     updateCategoryButtons(category);
+     if (isPaginationMode()) {
+    initPagination(totalItems);
+  } else {
     currentPage += 1;
+    checkAndToggleLoadMoreBtn();
+  }
   } catch (error) {
     throw error;
   } finally {
@@ -112,6 +144,7 @@ async function handleAnimalsFilteredByCategory(event) {
   }
 }
 async function handleLoadMoreBtnClicked() {
+  if (isPaginationMode()) return; 
   hideLoadMoreBtn();
   setItemsPerPage();
   try {
@@ -122,6 +155,7 @@ async function handleLoadMoreBtnClicked() {
   }
 }
 /* #endregion */
+
 /* #region  API requests */
 async function getCategories() {
   try {
@@ -191,7 +225,40 @@ async function getAnimalsByCategory(category, page = 1) {
   }
 }
 /* #endregion */
-
+async function loadAnimals(category, page) {
+  showLoader();
+  const paginationActive = isPaginationMode();
+  try {
+    let data;
+    const targetCategory = category || currentCategory;
+    if (targetCategory === 'Всі') {
+      data = await getAnimals(page);
+    } else {
+      data = await getAnimalsByCategory(targetCategory, page);
+    }
+    const { animals, totalItems } = data;
+    totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    const animalsMarkup = renderAnimals(animals);
+    if (paginationActive) {
+      refs.animalsList.innerHTML = animalsMarkup; 
+    } else {
+      refs.animalsList.insertAdjacentHTML('beforeend', animalsMarkup); 
+    }
+    if (paginationActive) {
+      container.classList.remove('is-hidden');
+      hideLoadMoreBtn();
+    } else {
+      container.classList.add('is-hidden');
+      checkAndToggleLoadMoreBtn(); 
+    }
+    return totalItems;
+  } catch (error) {
+    hideLoadMoreBtn();
+    throw error;
+  } finally {
+    hideLoader();
+  }
+}
 /* #region  renderfunctions */
 function renderCategories(categories) {
   const allCategories = ['Всі', ...categories];
@@ -205,6 +272,15 @@ function renderCategories(categories) {
     )
     .join('');
   refs.categoriesList.innerHTML = markup;
+}
+function updateCategoryButtons(activeCategoryName) {
+  const buttons = document.querySelectorAll('.pets-list__category-btn');
+  buttons.forEach(btn => {
+    btn.classList.remove('pets-list__category-btn--active');
+    if (btn.textContent === activeCategoryName) {
+      btn.classList.add('pets-list__category-btn--active');
+    }
+  });
 }
 function renderAnimals(animals) {
   const markup = animals
@@ -232,20 +308,13 @@ function renderAnimals(animals) {
         </li>`;
     })
     .join('');
-  refs.animalsList.insertAdjacentHTML('beforeend', markup);
+    return markup; 
 }
+
 function clearAnimals() {
   refs.animalsList.innerHTML = '';
 }
-function updateCategoryButtons(activeCategoryName) {
-  const buttons = document.querySelectorAll('.pets-list__category-btn');
-  buttons.forEach(btn => {
-    btn.classList.remove('pets-list__category-btn--active');
-    if (btn.textContent === activeCategoryName) {
-      btn.classList.add('pets-list__category-btn--active');
-    }
-  });
-}
+
 function showLoadMoreBtn() {
   refs.loadMoreBtn.classList.remove('is-hidden');
 }
@@ -266,3 +335,8 @@ function checkAndToggleLoadMoreBtn() {
   }
 }
 /* #endregion */
+
+document.addEventListener('DOMContentLoaded', initHomepage);
+window.addEventListener('resize', handleResize);
+refs.categoriesList.addEventListener('click', handleAnimalsFilteredByCategory);
+refs.loadMoreBtn.addEventListener('click', handleLoadMoreBtnClicked);

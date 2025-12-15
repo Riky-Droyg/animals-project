@@ -161,6 +161,7 @@
   }
   .modal {
     padding: 64px;
+    max-width: 1440px;
   }
   .modal__btn {
     margin-bottom: 0;
