@@ -1,7 +1,18 @@
 .hero-section {
   position: relative;
-  min-height: 544px;
+}
 
+.hero-container {
+  position: relative;
+
+  min-height: 480px;
+  padding-top: 64px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  background-color: #111;
   background-image: image-set(
     url('../img/hero/hero-mobile@1x.webp') 1x,
     url('../img/hero/hero-mobile@2x.webp') 2x
@@ -11,11 +22,12 @@
   background-position: right center;
 }
 
-.hero-section::before {
+.hero-container::before {
   content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
+
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 0.55) 0%,
@@ -24,15 +36,9 @@
   );
 }
 
-.hero-container {
+.hero-container > * {
   position: relative;
   z-index: 1;
-
-  padding-top: 64px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
 
 .hero-header {
@@ -48,14 +54,13 @@
 }
 
 .hero-text {
-  margin: 0 0 24px;
+  margin: 0 0 32px;
   max-width: 335px;
 
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  letter-spacing: 0;
   color: #fff;
 }
 
@@ -63,7 +68,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 16px;
 
   width: 171px;
   height: 45px;
@@ -74,24 +79,32 @@
   border-radius: 8px;
 
   font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
-  color: #fff;
+  color: #ffffff;
 
   text-decoration: none;
   cursor: pointer;
+
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.15s ease;
 }
 
 .hero-btn-link:hover,
 .hero-btn-link:focus-visible {
-  background: #c3b49d;
-  border-color: #02060a;
+  background: #eee9e3;
+  color: #02060a;
 }
 
-/* tablet */
+@media (min-width: 375px) {
+  .hero-container {
+    min-height: 544px;
+  }
+}
+
 @media (min-width: 768px) {
-  .hero-section {
+  .hero-container {
+    min-height: 544px;
     background-image: image-set(
       url('../img/hero/hero-tablet@1x.webp') 1x,
       url('../img/hero/hero-tablet@2x.webp') 2x
@@ -101,7 +114,6 @@
 
   .hero-header {
     max-width: 622px;
-    font-size: 40px;
   }
 
   .hero-text {
@@ -109,31 +121,28 @@
   }
 }
 
-/* desktop */
 @media (min-width: 1440px) {
-  .hero-section {
+  .hero-container {
     min-height: 900px;
+    padding-top: 128px;
+
     background-image: image-set(
       url('../img/hero/hero-desktop@1x.webp') 1x,
       url('../img/hero/hero-desktop@2x.webp') 2x
     );
   }
 
-  .hero-container {
-    padding-top: 128px;
-  }
-
   .hero-header {
-    max-width: 622px;
     font-size: 56px;
   }
 
-  .hero-text {
-    font-size: 18px;
-  }
-
   .hero-btn-link {
+    font-size: 16px;
     width: 189px;
     height: 48px;
+  }
+  .hero-text {
+    max-width: 512px;
+    font-size: 18px;
   }
 }
