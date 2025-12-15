@@ -46,25 +46,25 @@ async function handleResize() {
   }
 }
 async function loadAnimals(category, page) {
-    showLoader();
-    try {
-        let data;
-        const targetCategory = category || currentCategory;
-        if (targetCategory === 'Всі') {
-            data = await getAnimals(page); 
-        } else {
-            data = await getAnimalsByCategory(targetCategory, page); 
-        }
-        const { animals, totalItems } = data;
-        totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-        renderAnimals(animals); 
-        checkAndToggleLoadMoreBtn();
-    } catch (error) {
-      hideLoadMoreBtn();
-        throw error; 
-    } finally {
-        hideLoader();
+  showLoader();
+  try {
+    let data;
+    const targetCategory = category || currentCategory;
+    if (targetCategory === 'Всі') {
+      data = await getAnimals(page);
+    } else {
+      data = await getAnimalsByCategory(targetCategory, page);
     }
+    const { animals, totalItems } = data;
+    totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    renderAnimals(animals);
+    checkAndToggleLoadMoreBtn();
+  } catch (error) {
+    hideLoadMoreBtn();
+    throw error;
+  } finally {
+    hideLoader();
+  }
 }
 /* #region  handler-functions */
 async function initHomepage() {
@@ -94,35 +94,32 @@ async function handleAnimalsFilteredByCategory(event) {
   if (event.target.nodeName !== 'BUTTON') {
     return;
   }
-    setItemsPerPage();
+  setItemsPerPage();
   lastItemsPerPage = ITEMS_PER_PAGE;
-    currentPage = 1;
-    clearAnimals();
-    hideLoadMoreBtn();
+  currentPage = 1;
+  clearAnimals();
+  hideLoadMoreBtn();
   const category = event.target.textContent.trim();
   currentCategory = category;
   try {
-      await loadAnimals(currentCategory, currentPage); 
-      updateCategoryButtons(category);
-      currentPage +=1;
-  }
-  catch(error) {
+    await loadAnimals(currentCategory, currentPage);
+    updateCategoryButtons(category);
+    currentPage += 1;
+  } catch (error) {
     throw error;
-  }
-  finally {
+  } finally {
     hideLoader();
   }
-  }
+}
 async function handleLoadMoreBtnClicked() {
-   hideLoadMoreBtn();
+  hideLoadMoreBtn();
   setItemsPerPage();
-try {
-  await loadAnimals(currentCategory, currentPage);
-  currentPage+=1;
-}
-catch(error) {
-  throw error;
-}
+  try {
+    await loadAnimals(currentCategory, currentPage);
+    currentPage += 1;
+  } catch (error) {
+    throw error;
+  }
 }
 /* #endregion */
 /* #region  API requests */
@@ -177,10 +174,10 @@ async function getAnimalsByCategory(category, page = 1) {
       return { animals: [], totalItems: 0 };
     }
     const categoryId = targetCategory._id;
-      const { data } = await axios.get(
-    `${API_ENDPOINTS.ANIMALS}?page=${page}&limit=${ITEMS_PER_PAGE}&categoryId=${categoryId}`
-  );
-  return data;
+    const { data } = await axios.get(
+      `${API_ENDPOINTS.ANIMALS}?page=${page}&limit=${ITEMS_PER_PAGE}&categoryId=${categoryId}`
+    );
+    return data;
   } catch (error) {
     iziToast.error({
       title: '❌',
