@@ -81,6 +81,7 @@
 }
 
 .ac-text-sec {
+  font-family: 'IBM Plex Sans', sans-serif;
   margin-top: 5px;
   font-weight: 400;
   font-size: 14px;
@@ -98,7 +99,9 @@
 
 .ac-panel {
   overflow: hidden;
-  transition: none;
+  transition-property: height;
+  transition-duration: 300ms;
+  transition-timing-function: ease;
 }
 .ac.is-active .ac-panel {
   padding: 0 24px 24px;
