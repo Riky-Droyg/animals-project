@@ -132,11 +132,11 @@
 
 /* Контейнер — flex, все по центру в один рядок */
 .success-swiper {
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(150, 113, 113);
   display: flex;
-  justify-content: center; /* горизонтально по центру */
+
   align-items: center; /* вертикально по центру */
-  gap: 40px; /* відстань між стрілками і пагинацією */
+  gap: 100px; /* відстань між стрілками і пагинацією */
   margin-top: 40px; /* відступ від слайдера зверху */
   padding: 20px 0;
 

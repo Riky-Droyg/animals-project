@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     const response = await fetch(
-      'https://paw-hut.b.goit.study/api/feedbacks?limit=5'
+      'https://paw-hut.b.goit.study/api/feedbacks?limit=10'
     );
 
     if (!response.ok) {
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       spaceBetween: 32,
       loop: true,
       pagination: {
-        el: '.swiper-pagination',
+        el: document.querySelector('.success-swiper .swiper-navigation'),
         clickable: true,
       },
       // Прибираємо navigation повністю!
