@@ -2,26 +2,44 @@ document.addEventListener('DOMContentLoaded', async () => {
   const list = document.querySelector('.feedbacks-list');
   if (!list) return;
 
-  let swiperInstance; // збережемо екземпляр Swiper, щоб керувати ним
-
   try {
-    const response = await fetch(
-      'https://paw-hut.b.goit.study/api/feedbacks?limit=5'
-    );
+    const feedbacks = await fetchFeedbacks();
+    renderFeedbacks(list, feedbacks);
 
-    if (!response.ok) {
-      throw new Error(`Помилка: ${response.status}`);
-    }
+    const swiperInstance = initSwiper();
+    initSwiperButtons(swiperInstance);
+  } catch (error) {
+    console.error('Помилка запиту:', error);
+    list.innerHTML = '<li>Не вдалося завантажити відгуки.</li>';
+  }
+});
 
-    const data = await response.json();
-    const feedbacks = data.feedbacks;
+/* =======================
+   SERVER
+======================= */
+async function fetchFeedbacks() {
+  const response = await fetch(
+    'https://paw-hut.b.goit.study/api/feedbacks?limit=5'
+  );
 
-    const items = feedbacks
-      .map(item => {
-        const rating = parseFloat(item.rating) || 0;
-        const starPercentage = (rating / 5) * 100;
+  if (!response.ok) {
+    throw new Error(`Помилка: ${response.status}`);
+  }
 
-        return `
+  const data = await response.json();
+  return data.feedbacks;
+}
+
+/* =======================
+   RENDER
+======================= */
+function renderFeedbacks(list, feedbacks) {
+  const items = feedbacks
+    .map(item => {
+      const rating = parseFloat(item.rating) || 0;
+      const starPercentage = (rating / 5) * 100;
+
+      return `
         <li class="swiper-slide">
           <div class="star-rating" data-rating="${rating}">
             <div class="stars-outer">
@@ -33,45 +51,47 @@ document.addEventListener('DOMContentLoaded', async () => {
           <p class="swiper-slide-author">${item.author}</p>
         </li>
       `;
-      })
-      .join('');
+    })
+    .join('');
 
-    list.innerHTML = items;
+  list.innerHTML = items;
+}
 
-    // Ініціалізуємо Swiper БЕЗ navigation
-    swiperInstance = new Swiper('.success-content', {
-      slidesPerView: 1,
-      spaceBetween: 32,
-      loop: true,
-      pagination: {
-        el: document.querySelector('.success-swiper .swiper-navigation'),
-        clickable: true,
-      },
-      // Прибираємо navigation повністю!
-      // navigation: { ... } — видали цей блок
-      breakpoints: {
-        768: { slidesPerView: 2 },
-        1440: { slidesPerView: 3 },
-      },
+/* =======================
+   SWIPER
+======================= */
+function initSwiper() {
+  return new Swiper('.success-content', {
+    slidesPerView: 1,
+    spaceBetween: 32,
+    loop: true,
+    pagination: {
+      el: document.querySelector('.success-swiper .swiper-navigation'),
+      clickable: true,
+    },
+    breakpoints: {
+      768: { slidesPerView: 2 },
+      1440: { slidesPerView: 3 },
+    },
+  });
+}
+
+/* =======================
+   BUTTONS
+======================= */
+function initSwiperButtons(swiperInstance) {
+  const prevButton = document.querySelector('.custom-swiper-prev');
+  const nextButton = document.querySelector('.custom-swiper-next');
+
+  if (prevButton) {
+    prevButton.addEventListener('click', () => {
+      swiperInstance.slidePrev();
     });
-
-    // Тепер вручну додаємо обробники на наші кнопки
-    const prevButton = document.querySelector('.custom-swiper-prev');
-    const nextButton = document.querySelector('.custom-swiper-next');
-
-    if (prevButton) {
-      prevButton.addEventListener('click', () => {
-        swiperInstance.slidePrev();
-      });
-    }
-
-    if (nextButton) {
-      nextButton.addEventListener('click', () => {
-        swiperInstance.slideNext();
-      });
-    }
-  } catch (error) {
-    console.error('Помилка запиту:', error);
-    list.innerHTML = '<li>Не вдалося завантажити відгуки.</li>';
   }
-});
+
+  if (nextButton) {
+    nextButton.addEventListener('click', () => {
+      swiperInstance.slideNext();
+    });
+  }
+}
