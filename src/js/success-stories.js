@@ -22,7 +22,7 @@ async function fetchFeedbacks() {
   const response = await axios.get(
     'https://paw-hut.b.goit.study/api/feedbacks',
     {
-      params: { limit: 5 },
+      params: { limit: 7 },
     }
   );
 

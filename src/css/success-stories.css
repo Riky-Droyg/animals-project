@@ -40,6 +40,7 @@
 
 .star-rating {
   background-color: #9e935e;
+  width: 100%;
 
   margin-bottom: 32px;
 }
@@ -66,13 +67,6 @@
   background-color: #63625f;
 }
 
-.swiper-button-next {
-  background-color: #91ac1b;
-}
-
-.swiper-button-prev {
-  background-color: #91ac1b;
-}
 .stars-outer {
   display: inline-block;
   position: relative;
@@ -82,23 +76,6 @@
   color: #e0e0e0; /* колір порожніх зірок */
 }
 
-.stars-outer::before {
-  content: '\f005 \f005 \f005 \f005 \f005'; /* 5 порожніх зірок */
-}
-
-.stars-inner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 0; /* перезаписується inline style з JS */
-  color: #ffd700; /* золотий колір заповнених зірок */
-}
-
-.stars-inner::before {
-  content: '\f005 \f005 \f005 \f005 \f005'; /* 5 повних зірок */
-}
 /* #endregion */
 
 /* #region success-swiper*/
@@ -116,6 +93,7 @@
 }
 
 .success-swiper-buttons {
+  background-color: #7e7067;
   display: flex;
   gap: 16px;
 }
@@ -151,36 +129,6 @@
   border: 1px solid rgba(2, 6, 10, 0.6);
 }
 
-/* Примусово тримаємо пагинацію там, де вона в HTML — всередині .success-swiper */
-.success-content .swiper-pagination {
-  position: static !important; /* найголовніше — знімаємо absolute */
-  bottom: auto !important;
-  left: auto !important;
-  transform: none !important;
-  width: auto !important;
-  margin: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 12px; /* відстань між точками */
-}
-
-/* Стилі самих точок — робимо їх гарнішими */
-.success-content .swiper-pagination-bullet {
-  width: 12px !important;
-  height: 12px !important;
-  background-color: rgba(255, 255, 255, 0.6) !important; /* напівпрозорі білі */
-  border-radius: 50% !important;
-  opacity: 1 !important;
-  transition: all 0.3s ease !important;
-  margin: 0 !important; /* на випадок, якщо Swiper додає margin */
-}
-
-.success-content .swiper-pagination-bullet-active {
-  background-color: white !important; /* активна — повністю біла */
-  transform: scale(1.3) !important;
-}
-
 /* #endregion */
 
 /* #region адаптивна верстка*/
@@ -210,24 +158,3 @@
   }
 }
 /* #endregion */
-
-/* Колір заповнених зірок та половинок */
-.star-on {
-  color: #ffd700; /* Золотий */
-}
-
-/* Колір порожніх зірок */
-.star-off {
-  color: #e0e0e0; /* Сірий */
-}
-
-.star-rating-container {
-  margin-bottom: 32px;
-  display: flex;
-  gap: 4px; /* Відстань між зірками */
-}
-
-/* Іконки FontAwesome зазвичай потребують базового стилю */
-.star-rating-container i {
-  font-size: 24px;
-}
