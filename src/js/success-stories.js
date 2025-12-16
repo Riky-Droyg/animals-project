@@ -28,7 +28,7 @@ async function fetchFeedbacks() {
   const response = await axios.get(
     'https://paw-hut.b.goit.study/api/feedbacks',
     {
-      params: { limit: 7 },
+      params: { limit: 10 },
     }
   );
 
