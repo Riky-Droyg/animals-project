@@ -1,0 +1,155 @@
+
+.header {
+  position: sticky;
+  top: 0;
+  background: #f5f3ef;
+  z-index: 100;
+}
+
+.header__container {
+  display: flex;
+  align-items: center;
+  height: 68px;
+  padding-right: 128px;
+}
+
+
+.header__logo img {
+  width: 120px;
+  height: 48px;
+  object-fit: contain;
+}
+
+
+.nav--desktop {
+  display: flex;
+  gap: 34px;
+  margin-left: 24.95px; 
+}
+
+
+.btn--primary {
+  margin-left: auto;
+  padding: 12px 24px;
+  border-radius: 10px;
+  background: #88765C;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.btn--primary:hover {
+  background: #EEE9E3;
+  color: #000;
+  border: 1px solid #88765C;
+}
+
+
+.burger {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.burger svg {
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+
+
+.burger-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 200;
+}
+
+.burger-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.burger-menu__content {
+  height: 100%;
+  background: #f5f3ef;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  position: relative;
+}
+
+.burger-logo {
+  width: 120px;
+  height: 48px;
+  object-fit: contain;
+}
+
+
+.burger-menu__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+
+.burger-menu__center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+}
+
+.burger-menu__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.burger-menu__nav a {
+  font-size: 18px;
+  text-decoration: none;
+  color: #000;
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .nav--desktop,
+  .header .btn--primary {
+    display: none;
+  }
+
+  .burger {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .burger-menu__center {
+    align-items: flex-start;
+  }
+
+  .burger-menu__nav a {
+    text-align: left;
+    width: 100%;
+  }
+
+  .burger-menu__center .btn--primary {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+  }
+}
