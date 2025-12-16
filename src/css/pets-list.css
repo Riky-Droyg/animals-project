@@ -26,6 +26,7 @@
 .pets-list__categories {
   display: flex;
   flex-wrap: wrap;
+  gap: 2px;
   align-items: center;
   justify-content: center;
   margin-bottom: 32px;
@@ -36,19 +37,18 @@
   border: none;
   background-color: transparent;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   color: #02060a;
-  transition: background-color 250ms ease-in-out;
+  transition: background-color 250ms ease-in-out, border-color 250ms ease-in-out;
 }
 .pets-list__category-btn:hover,
 .pets-list__category-btn:focus {
-  background-color: #c3b49d;
+  background-color: rgba(2, 6, 10, 0.05);
 }
 .pets-list__category-btn--active {
-  box-shadow: inset 0 4px 6px -2px rgba(0, 0, 0, 0.03),
-    inset 0 12px 16px -4px rgba(0, 0, 0, 0.08);
-  background-color: #eee9e3;
+  background-color: rgba(2, 6, 10, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0);
 }
 .pets-list__cards {
   display: flex;
@@ -71,8 +71,8 @@
 }
 .pets-list__card--image {
   border-radius: 8px;
-  width: 311px;
-  height: 245px;
+  width: 100%;
+  object-fit: cover;
   margin-bottom: 18px;
 }
 .pets-list__card--specie {
@@ -152,14 +152,14 @@
   display: block;
   margin: 0 auto;
   border: 1px solid #88765c;
-border-radius: 8px;
-padding: 12px 24px;
-background-color: #88765c;
-font-weight: 400;
-font-size: 14px;
-line-height: 1.5;
-color: #fff;
-transition: background-color 250 ms ease-in-out;
+  border-radius: 8px;
+  padding: 12px 24px;
+  background-color: #88765c;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #fff;
+  transition: background-color 250 ms ease-in-out;
 }
 .load-more-btn:hover,
 .load-more-btn:focus,
@@ -167,22 +167,22 @@ transition: background-color 250 ms ease-in-out;
   background-color: #eee9e3;
 }
 .load-more-btn:active {
-  box-shadow: inset 0 4px 6px -2px rgba(0, 0, 0, 0.03), inset 0 12px 16px -4px rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 4px 6px -2px rgba(0, 0, 0, 0.03),
+    inset 0 12px 16px -4px rgba(0, 0, 0, 0.08);
 }
 .load-more-btn.is-hidden {
   display: none;
 }
 @media screen and (min-width: 768px) {
- .pets-list__cards {
-  justify-content: center;
- }
+  .pets-list__cards {
+    justify-content: center;
+  }
   .pets-list__card {
     width: calc((100% - 32px) / 2);
   }
   .pets-list__card--image {
     margin-bottom: 16px;
   }
- 
 }
 @media screen and (min-width: 1440px) {
   .pets-list__title {
@@ -193,15 +193,10 @@ transition: background-color 250 ms ease-in-out;
     margin-bottom: 40px;
   }
   .pets-list__categories {
-    gap: 2px;
     margin-bottom: 40px;
   }
   .pets-list__card {
     width: calc((100% - 64px) / 3);
-  }
-  .pets-list__card--image {
-    width: 392px;
-    height: 309px;
   }
   .pets-list__card--specie {
     font-size: 12px;

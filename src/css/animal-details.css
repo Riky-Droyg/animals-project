@@ -26,7 +26,7 @@
   position: relative;
   border-radius: 8px;
   padding: 64px 20px;
-  max-height: 90%;
+  max-height: 90vh;
   overflow: scroll;
   background-color: #f6f4f1;
   transition: transform 250ms ease-in-out;
@@ -46,7 +46,6 @@
   justify-content: center;
   opacity: 1;
 }
-
 .modal__close-icon {
   fill: #02060a;
 }
@@ -54,6 +53,10 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+}
+.modal__image {
+  width: 100%;
+  object-fit: cover;
 }
 .modal__animal-description {
   display: flex;
@@ -130,13 +133,13 @@
   }
   .modal {
     padding: 64px 32px;
+    overflow: auto;
   }
   .modal__content {
     flex-direction: row;
   }
   .modal__image {
     width: calc((100% - 32px) / 2);
-    height: 450px;
   }
   .modal__animal-description {
     width: calc((100% - 32px) / 2);
@@ -162,6 +165,7 @@
   .modal {
     padding: 64px;
     max-width: 1440px;
+    max-height: fit-content;
   }
   .modal__btn {
     margin-bottom: 0;
@@ -174,5 +178,8 @@
   .modal__btn,
   .modal__name {
     order: 0;
+  }
+  .modal__btn {
+    margin-top: auto;
   }
 }

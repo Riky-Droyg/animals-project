@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { API_ENDPOINTS, refs } from './pets-list';
 import iziToast from 'izitoast';
+const MAX_LIMIT = 30;
 const backdrop = document.querySelector('.backdrop');
 const modalContent = document.querySelector('.js-modal-content');
 const modalCloseBtn = document.querySelector('.js-close-btn');
@@ -40,15 +41,22 @@ async function handleModalDEtailsOpened(event) {
 
 async function getAnimalById(id) {
   try {
-    const { data } = await axios.get(
-      `https://paw-hut.b.goit.study${API_ENDPOINTS.ANIMALS}`
-    );
-    const animal = data.animals.find(animal => animal._id === id);
-    if (!animal) {
-      throw new Error('Animal not found in the list.');
+    let currentPage = 1;
+    let totalPages = Infinity;
+    while (currentPage <= totalPages) {
+      const { data } = await axios.get(
+        `https://paw-hut.b.goit.study${API_ENDPOINTS.ANIMALS}?page=${currentPage}&limit=${MAX_LIMIT}`
+      );
+      if (totalPages === Infinity) {
+        totalPages = Math.ceil(data.totalItems / MAX_LIMIT);
+      }
+      const animal = data.animals.find(animal => animal._id === id);
+      if (animal) {
+        return animal;
+      }
+      currentPage += 1;
     }
-
-    return animal;
+    throw new Error('Animal not found in the list.');
   } catch (error) {
     iziToast.error({
       title: '❌',

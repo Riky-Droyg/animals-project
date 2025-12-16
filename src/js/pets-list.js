@@ -1,7 +1,7 @@
 import axios from 'axios';
 import iziToast from 'izitoast';
 import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.css'; 
+import 'tui-pagination/dist/tui-pagination.css';
 
 /* #region  global variables */
 let ITEMS_PER_PAGE = 8;
@@ -50,13 +50,19 @@ function createPaginationOptions(totalItems) {
     centerAlign: true,
   };
 }
+function destroyPagination() {
+  if (!paginationInstance) return;
 
+  paginationInstance.off();
+  container.innerHTML = '';
+  paginationInstance = null;
+}
 function initPagination(totalItems) {
   if (paginationInstance) {
-    paginationInstance.destroy();
+    destroyPagination();
   }
-
-  paginationInstance = new Pagination(container,
+  paginationInstance = new Pagination(
+    container,
     createPaginationOptions(totalItems)
   );
   paginationInstance.on('afterMove', async event => {
@@ -72,23 +78,23 @@ async function initHomepage() {
   clearAnimals();
   showLoader();
   hideLoadMoreBtn();
-  if(!isPaginationMode()) {
+  if (!isPaginationMode()) {
     container.classList.add('is-hidden');
   }
   lastMode = isPaginationMode();
   try {
     const categories = await getCategories();
     renderCategories(categories);
-   const totalItems = await loadAnimals(currentCategory, currentPage); 
+    const totalItems = await loadAnimals(currentCategory, currentPage);
     updateCategoryButtons('Всі');
- if (isPaginationMode()) {
-    container.classList.remove('is-hidden');
-    initPagination(totalItems);
-  } else {
-    container.classList.add('is-hidden');
-    currentPage += 1;
-    checkAndToggleLoadMoreBtn();
-  }
+    if (isPaginationMode()) {
+      container.classList.remove('is-hidden');
+      initPagination(totalItems);
+    } else {
+      container.classList.add('is-hidden');
+      currentPage += 1;
+      checkAndToggleLoadMoreBtn();
+    }
   } catch (error) {
     throw error;
   } finally {
@@ -99,8 +105,14 @@ async function handleResize() {
   const prevMode = lastMode;
   setItemsPerPage();
   const currentMode = isPaginationMode();
-
-  if (prevMode !== currentMode || ITEMS_PER_PAGE !== (paginationInstance ? paginationInstance : ITEMS_PER_PAGE)) {
+  const itemsPerPageChanged =
+    paginationInstance &&
+    paginationInstance._options.itemsPerPage !== ITEMS_PER_PAGE;
+  if (
+    prevMode !== currentMode ||
+    itemsPerPageChanged ||
+    (!paginationInstance && currentMode)
+  ) {
     clearAnimals();
     currentPage = 1;
 
@@ -111,6 +123,7 @@ async function handleResize() {
       hideLoadMoreBtn();
       initPagination(totalItems);
     } else {
+      destroyPagination();
       container.classList.add('is-hidden');
       currentPage += 1;
       checkAndToggleLoadMoreBtn();
@@ -129,14 +142,14 @@ async function handleAnimalsFilteredByCategory(event) {
   const category = event.target.textContent.trim();
   currentCategory = category;
   try {
-  const totalItems =  await loadAnimals(currentCategory, currentPage);
+    const totalItems = await loadAnimals(currentCategory, currentPage);
     updateCategoryButtons(category);
-     if (isPaginationMode()) {
-    initPagination(totalItems);
-  } else {
-    currentPage += 1;
-    checkAndToggleLoadMoreBtn();
-  }
+    if (isPaginationMode()) {
+      initPagination(totalItems);
+    } else {
+      currentPage += 1;
+      checkAndToggleLoadMoreBtn();
+    }
   } catch (error) {
     throw error;
   } finally {
@@ -144,7 +157,7 @@ async function handleAnimalsFilteredByCategory(event) {
   }
 }
 async function handleLoadMoreBtnClicked() {
-  if (isPaginationMode()) return; 
+  if (isPaginationMode()) return;
   hideLoadMoreBtn();
   setItemsPerPage();
   try {
@@ -240,16 +253,16 @@ async function loadAnimals(category, page) {
     totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
     const animalsMarkup = renderAnimals(animals);
     if (paginationActive) {
-      refs.animalsList.innerHTML = animalsMarkup; 
+      refs.animalsList.innerHTML = animalsMarkup;
     } else {
-      refs.animalsList.insertAdjacentHTML('beforeend', animalsMarkup); 
+      refs.animalsList.insertAdjacentHTML('beforeend', animalsMarkup);
     }
     if (paginationActive) {
       container.classList.remove('is-hidden');
       hideLoadMoreBtn();
     } else {
       container.classList.add('is-hidden');
-      checkAndToggleLoadMoreBtn(); 
+      checkAndToggleLoadMoreBtn();
     }
     return totalItems;
   } catch (error) {
@@ -308,7 +321,7 @@ function renderAnimals(animals) {
         </li>`;
     })
     .join('');
-    return markup; 
+  return markup;
 }
 
 function clearAnimals() {
