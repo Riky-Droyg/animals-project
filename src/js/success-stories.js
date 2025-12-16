@@ -68,7 +68,7 @@ function initSwiper() {
     },
     breakpoints: {
       768: { slidesPerView: 2 },
-      1440: { slidesPerView: 2 },
+      1440: { slidesPerView: 2 }, //не міняємо
     },
   });
 }
@@ -97,11 +97,10 @@ function initSwiperButtons(swiperInstance) {
     swiperInstance.slideNext();
   });
 
-  // 👉 оновлюємо стан одразу після ініціалізації
+  // оновлення після ініціалізації
   updateButtonsState();
 
-  // 👉 оновлюємо при кожній зміні слайду
+  // оновлення при кожній зміні
   swiperInstance.on('slideChange', updateButtonsState);
 }
-
 //#endregion

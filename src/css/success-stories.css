@@ -210,3 +210,24 @@
   }
 }
 /* #endregion */
+
+/* Колір заповнених зірок та половинок */
+.star-on {
+  color: #ffd700; /* Золотий */
+}
+
+/* Колір порожніх зірок */
+.star-off {
+  color: #e0e0e0; /* Сірий */
+}
+
+.star-rating-container {
+  margin-bottom: 32px;
+  display: flex;
+  gap: 4px; /* Відстань між зірками */
+}
+
+/* Іконки FontAwesome зазвичай потребують базового стилю */
+.star-rating-container i {
+  font-size: 24px;
+}
