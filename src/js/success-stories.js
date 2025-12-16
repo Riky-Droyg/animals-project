@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const list = document.querySelector('.feedbacks-list');
@@ -16,9 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-/* =======================
-   SERVER
-======================= */
+//#region server
 async function fetchFeedbacks() {
   const response = await axios.get(
     'https://paw-hut.b.goit.study/api/feedbacks',
@@ -29,10 +28,9 @@ async function fetchFeedbacks() {
 
   return response.data.feedbacks;
 }
+//#endregion
 
-/* =======================
-   RENDER
-======================= */
+//#region render
 function renderFeedbacks(list, feedbacks) {
   const items = feedbacks
     .map(item => {
@@ -56,13 +54,14 @@ function renderFeedbacks(list, feedbacks) {
 
   list.innerHTML = items;
 }
+//#endregion
 
 //#region swiper
 function initSwiper() {
   return new Swiper('.success-content', {
     slidesPerView: 1,
     spaceBetween: 32,
-    loop: true,
+    loop: false, // циклічність
     pagination: {
       el: document.querySelector('.success-swiper .swiper-navigation'),
       clickable: true,
@@ -80,16 +79,29 @@ function initSwiperButtons(swiperInstance) {
   const prevButton = document.querySelector('.custom-swiper-prev');
   const nextButton = document.querySelector('.custom-swiper-next');
 
-  if (prevButton) {
-    prevButton.addEventListener('click', () => {
-      swiperInstance.slidePrev();
-    });
-  }
+  if (!prevButton || !nextButton) return;
 
-  if (nextButton) {
-    nextButton.addEventListener('click', () => {
-      swiperInstance.slideNext();
-    });
-  }
+  const updateButtonsState = () => {
+    prevButton.disabled = swiperInstance.isBeginning;
+    nextButton.disabled = swiperInstance.isEnd;
+
+    prevButton.classList.toggle('is-disabled', swiperInstance.isBeginning);
+    nextButton.classList.toggle('is-disabled', swiperInstance.isEnd);
+  };
+
+  prevButton.addEventListener('click', () => {
+    swiperInstance.slidePrev();
+  });
+
+  nextButton.addEventListener('click', () => {
+    swiperInstance.slideNext();
+  });
+
+  // 👉 оновлюємо стан одразу після ініціалізації
+  updateButtonsState();
+
+  // 👉 оновлюємо при кожній зміні слайду
+  swiperInstance.on('slideChange', updateButtonsState);
 }
+
 //#endregion
