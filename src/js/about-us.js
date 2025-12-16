@@ -78,20 +78,23 @@ swiperSlides.forEach((slide, index) => {
 });
 
 const aboutSwiper = new Swiper('.about-swiper', {
+  modules: [Navigation, Pagination],
   direction: 'horizontal',
   loop: false,
 
   pagination: {
-    el: '.swiper-pagination',
+    el: '.about-swiper-pagination',
+    dynamicBullets: true,
   },
 
   navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
+    nextEl: '.about-swiper-button-next',
+    prevEl: '.about-swiper-button-prev',
+    disabledClass: 'swiper-button-disabled',
   },
 });
 
-const btnPrev = document.querySelector('.swiper-button-prev img');
-const btnNext = document.querySelector('.swiper-button-next img');
+const btnPrev = document.querySelector('.about-swiper-button-prev img');
+const btnNext = document.querySelector('.about-swiper-button-next img');
 btnPrev.src = arrowLeft;
 btnNext.src = arrowRight;
