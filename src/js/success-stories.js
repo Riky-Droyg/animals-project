@@ -1,10 +1,8 @@
-//HTTP запит
-import axios from 'axios';
-import swiper from 'swiper';
-
 document.addEventListener('DOMContentLoaded', async () => {
   const list = document.querySelector('.feedbacks-list');
   if (!list) return;
+
+  let swiperInstance; // збережемо екземпляр Swiper, щоб керувати ним
 
   try {
     const response = await fetch(
@@ -20,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const items = feedbacks
       .map(item => {
-        const rating = parseFloat(item.rating) || 0; // поле з бекенду, наприклад 4.5
+        const rating = parseFloat(item.rating) || 0;
         const starPercentage = (rating / 5) * 100;
 
         return `
@@ -40,8 +38,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     list.innerHTML = items;
 
-    // Ініціалізуємо Swiper
-    new Swiper('.success-content', {
+    // Ініціалізуємо Swiper БЕЗ navigation
+    swiperInstance = new Swiper('.success-content', {
       slidesPerView: 1,
       spaceBetween: 32,
       loop: true,
@@ -49,15 +47,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         el: '.swiper-pagination',
         clickable: true,
       },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
+      // Прибираємо navigation повністю!
+      // navigation: { ... } — видали цей блок
       breakpoints: {
         768: { slidesPerView: 2 },
         1440: { slidesPerView: 3 },
       },
     });
+
+    // Тепер вручну додаємо обробники на наші кнопки
+    const prevButton = document.querySelector('.custom-swiper-prev');
+    const nextButton = document.querySelector('.custom-swiper-next');
+
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        swiperInstance.slidePrev();
+      });
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        swiperInstance.slideNext();
+      });
+    }
   } catch (error) {
     console.error('Помилка запиту:', error);
     list.innerHTML = '<li>Не вдалося завантажити відгуки.</li>';

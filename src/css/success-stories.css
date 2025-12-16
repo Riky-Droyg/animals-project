@@ -66,6 +66,13 @@
   background-color: #63625f;
 }
 
+.swiper-button-next {
+  background-color: #91ac1b;
+}
+
+.swiper-button-prev {
+  background-color: #91ac1b;
+}
 .stars-outer {
   display: inline-block;
   position: relative;
