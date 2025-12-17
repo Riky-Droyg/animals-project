@@ -115,6 +115,8 @@ async function initHomepage() {
 async function handleResize() {
   const prevMode = lastMode;
   const prevItemsPerPage = ITEMS_PER_PAGE;
+  destroyPagination();
+  hideLoadMoreBtn();
   setItemsPerPage();
   const currentMode = isPaginationMode();
   if (prevMode !== currentMode ||
