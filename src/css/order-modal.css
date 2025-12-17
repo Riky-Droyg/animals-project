@@ -10,8 +10,11 @@
   width: 100%;
   height: 100%;
 
-  padding-block: 64px;
-  padding-inline: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 64px 20px;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -49,17 +52,16 @@
   width: 335px;
   max-width: 768px;
   max-height: calc(100vh - 128px); /* 64*2 */
+
   overflow-y: auto;
   overflow-x: hidden;
   padding: 64px 24px;
+  box-sizing: border-box;
   border-radius: 8px;
-  margin: auto;
 
   transform: translateY(60px);
   opacity: 0;
   transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), opacity 300ms ease;
-
-  /* transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1); */
 }
 
 .order-modal__backdrop.is-open .order-modal {
@@ -121,9 +123,8 @@
 
 .order-modal__title {
   margin-bottom: 48px;
-  /* width: 295px;
-  height: 129px; */
   max-width: 295px;
+  font-family: 'Open Sans', Arial, sans-serif;
   font-weight: 700;
   font-size: 36px;
   line-height: 1.2;
@@ -170,19 +171,20 @@
   flex-direction: column;
   gap: 8px;
   width: 100%;
+  font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
   color: #02060a;
 }
 
-.order-modal__label > input {
+.order-modal__input {
   outline: none;
-  display: flex;
-  align-items: flex-start;
+  display: block;
+  /* align-items: flex-start;
   justify-content: center;
   flex-direction: column;
-  gap: 8px;
+  gap: 8px; */
   width: 100%;
   height: 37px;
   border: 1px solid #ffffff;
@@ -191,15 +193,23 @@
   padding-inline: 12px;
   background-color: rgba(2, 6, 10, 0.05);
   color: rgba(2, 6, 10, 0.6);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-.order-modal__label > textarea {
+/* .order-modal__label > input[name='phone'] {
+  font-family: 'Roboto', system-ui, sans-serif;
+} */
+
+.order-modal__textarea {
   outline: none;
-  display: flex;
-  align-items: flex-start;
+  display: block;
+  /* align-items: flex-start;
   justify-content: center;
   flex-direction: column;
-  gap: 0px;
+  gap: 0px; */
   border: 1px solid #ffffff;
   border-radius: 12px;
   padding: 12px;
@@ -207,15 +217,19 @@
   height: 180px;
   background-color: rgba(2, 6, 10, 0.05);
   color: rgba(2, 6, 10, 0.6);
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-.order-modal__label > input:hover:not(:focus-visible):not(.error),
-.order-modal__label > textarea:hover:not(:focus-visible):not(.error) {
+.order-modal__input:hover:not(:focus-visible):not(.error),
+.order-modal__textarea:hover:not(:focus-visible):not(.error) {
   color: #02060a;
 }
 
-.order-modal__label > input:focus-visible,
-.order-modal__label > textarea:focus-visible {
+.order-modal__input:focus-visible,
+.order-modal__textarea:focus-visible {
   border: 1px solid #88765c;
   background-color: #eee9e3;
   color: #02060a;
@@ -227,8 +241,8 @@
   color: rgba(2, 6, 10, 0.6);
 }
 
-.order-modal__label > input.error,
-.order-modal__label > textarea.error {
+.order-modal__input.error,
+.order-modal__textarea.error {
   border: 1px solid #ae0000;
   background-color: rgba(2, 6, 10, 0.05);
   color: #ae0000;

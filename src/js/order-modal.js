@@ -89,9 +89,9 @@ refs.inputName?.addEventListener('input', (e) => {
     const value = e.target.value.trim().length;
     refs.nameMsg.textContent = (value < 3 && value > 0) ? 'Мінімум 3 символи' : '';
     refs.nameMsg.classList.toggle('error', value < 3 && value > 0);
-    e.target.classList.toggle('error', value < 3 && value > 0);  
     updateSubmitBtn();
 });
+
 
 function normalizePhone(value) {
   // залишаємо тільки цифри
@@ -123,13 +123,13 @@ refs.inputPhone.addEventListener('input', (e) => {
 
     if (value !== cleaned) {
         refs.phoneMsg.textContent = 'Можна вводити тільки цифри';
-        e.target.classList.add('error');
+        refs.phoneMsg.classList.add('error');
     } else if (cleaned.length > 0 && !isPhoneValid(cleaned)) {
         refs.phoneMsg.textContent = 'Неправильний номер (потрібно 10 або 12 цифр)';
-        e.target.classList.add('error');
+        refs.phoneMsg.classList.add('error');
     } else {
         refs.phoneMsg.textContent = '';
-        e.target.classList.remove('error');
+        refs.phoneMsg.classList.remove('error');
     }   
     updateSubmitBtn();
 });
@@ -139,7 +139,6 @@ refs.textareaComment?.addEventListener('input', (e) => {
     const value = e.target.value.trim().length;
     refs.commentMsg.textContent = (value < 10 && value > 0) ? 'Мінімум 10 символів' : '';
     refs.commentMsg.classList.toggle('error', value < 10 && value > 0);
-    e.target.classList.toggle('error', value < 10 && value > 0);  
     updateSubmitBtn();
 });
 
