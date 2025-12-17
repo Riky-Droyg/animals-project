@@ -72,7 +72,7 @@
   .slide-text {
     position: absolute;
     z-index: 2;
-    top: 238px;
+    top: 260px;
     left: 20px;
     bottom: 20px;
     right: 20px;
@@ -96,7 +96,7 @@
 }
 
 .about-swiper-pagination {
-  margin-left: 40px;
+  /* margin-left: 40px; */
 }
 
 .about-us-section .swiper-pagination-bullet {

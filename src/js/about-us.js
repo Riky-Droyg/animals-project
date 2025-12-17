@@ -116,9 +116,27 @@ const aboutSwiper = new Swiper('.about-swiper', {
       },
     },
   },
+
+  on: {
+    init(swiper) {
+      fixPagination(swiper);
+    },
+    slideChange(swiper) {
+      fixPagination(swiper);
+    },
+    resize(swiper) {
+      fixPagination(swiper);
+    },
+  },
 });
 
-// document.querySelector('.about-swiper').style.overflow = 'visible';
+function fixPagination(swiper) {
+  const el = swiper.pagination.el;
+
+  el.style.transform = 'none';
+  el.style.left = 'auto';
+  el.style.position = 'static';
+}
 
 const btnPrev = document.querySelector('.about-swiper-button-prev img');
 const btnNext = document.querySelector('.about-swiper-button-next img');
