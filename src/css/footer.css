@@ -4,40 +4,35 @@
   background-color: #c3b49d;
 }
 
-.footer-wrapper {
+.footer__wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #c3b49d;
 }
-.container {
-  width: 100%;
-  max-width: 375px;
 
-  margin: 0 auto;
-}
-
-.logo {
+.footer__logo {
   padding: 0 16px;
   margin-bottom: 32px;
 }
 
-.logo-img {
+.footer__logo-img {
   width: 302px;
   height: 129px;
 }
-.footer-nav {
+
+.footer__nav {
   margin-bottom: 32px;
 }
 
-.footer-nav-list {
+.footer__nav-list {
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 16px;
 }
 
-.footer-nav-item {
+.footer__nav-item {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 600;
   font-size: 12px;
@@ -45,7 +40,7 @@
   color: #02060a;
 }
 
-.footer-nav-link {
+.footer__nav-link {
   font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 600;
   font-size: 12px;
@@ -54,28 +49,32 @@
   text-align: center;
   transition: color 0.3s ease, text-decoration-color 0.3s ease;
 }
-.footer-nav-link:hover,
-.footer-nav-link:focus-visible {
+
+.footer__nav-link:hover,
+.footer__nav-link:focus-visible {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
-.footer-nav-link:active {
+
+.footer__nav-link:active {
   color: #88765c;
   text-decoration: underline;
 }
 
-.footer-social-list {
+.footer__social-list {
   display: flex;
   gap: 24px;
   margin-bottom: 80px;
 }
-.footer-divider {
+
+.footer__divider {
   border: 1px solid rgba(2, 6, 10, 0.15);
   width: 100%;
   height: 0px;
   margin: 0 auto 32px;
 }
-.footer-copyright {
+
+.footer__copyright {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 12px;
   line-height: 1.5;
@@ -87,19 +86,12 @@
     padding: 48px 0;
   }
 
-  .container {
-    max-width: 768px;
-    padding: 0 32px;
-  }
 
-  .logo {
+  .footer__logo {
     padding: 0 89px;
   }
 
-  .footer-nav {
-    padding: 0 44px;
-  }
-  .footer-nav-list {
+  .footer__nav-list {
     flex-direction: row;
     gap: 32px;
   }
@@ -110,16 +102,11 @@
     padding: 64px 0;
   }
 
-  .container {
-    max-width: 1440px;
-    padding: 0 64px;
-  }
-
-  .footer-nav-link {
+  .footer__nav-link {
     font-size: 14px;
   }
 
-  .footer-copyright {
+  .footer__copyright {
     font-size: 14px;
   }
 }
