@@ -52,10 +52,11 @@
   width: 335px;
   max-width: 768px;
   max-height: calc(100vh - 128px); /* 64*2 */
-
+  border-top: 3px solid #ffffff;
+  border-bottom: 3px solid #ffffff;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 64px 24px;
+  padding: 61px 24px;
   box-sizing: border-box;
   border-radius: 8px;
 
@@ -97,7 +98,7 @@
 
 .order-modal__close-btn {
   position: absolute;
-  top: 25px;
+  top: 22px;
   right: 25px;
 
   width: 24px;
