@@ -306,8 +306,8 @@ function renderAnimals(animals) {
           category =>
             `<li class="pets-list__card--category">${category.name}</li>`
         )
-        .join('');
-      `
+        .join('')
+    return  `
             <li class="pets-list__card">
             <img class = "pets-list__card--image" src="${image}" alt="${name}" "lazy-loading">
         <p class="pets-list__card--specie">${species}</p>
