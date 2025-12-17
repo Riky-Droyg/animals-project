@@ -84,10 +84,11 @@ const aboutSwiper = new Swiper('.about-swiper', {
   direction: 'horizontal',
   loop: false,
 
-  slidesPerView: 1, // тільки один слайд
-  spaceBetween: 20, // без проміжків
-  centeredSlides: false, // не центрований, щоб не видно було сусідніх
-  watchOverflow: true,
+  slidesPerView: 1,
+
+  // spaceBetween: 20,
+  // centeredSlides: false,
+  // watchOverflow: true,
 
   pagination: {
     el: '.about-swiper-pagination',
@@ -103,19 +104,21 @@ const aboutSwiper = new Swiper('.about-swiper', {
 
   breakpoints: {
     768: {
-      // планшет
-      slidesPerView: 1,
-      spaceBetween: 140,
+      pagination: {
+        el: '.about-swiper-pagination',
+        dynamicBullets: false,
+      },
     },
     1440: {
-      // десктоп
-      slidesPerView: 1,
-      spaceBetween: 200,
+      pagination: {
+        el: '.about-swiper-pagination',
+        dynamicBullets: false,
+      },
     },
   },
 });
 
-document.querySelector('.about-swiper').style.overflow = 'visible';
+// document.querySelector('.about-swiper').style.overflow = 'visible';
 
 const btnPrev = document.querySelector('.about-swiper-button-prev img');
 const btnNext = document.querySelector('.about-swiper-button-next img');
