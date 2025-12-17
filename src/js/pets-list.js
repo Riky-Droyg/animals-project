@@ -141,6 +141,7 @@ async function handleAnimalsFilteredByCategory(event) {
   }
   setItemsPerPage();
   currentPage = 1;
+  destroyPagination();
    hideLoadMoreBtn();
   clearAnimals();
   const category = event.target.textContent.trim();
