@@ -6,21 +6,25 @@ import 'tui-pagination/dist/tui-pagination.css';
 /* #region  global variables */
 let ITEMS_PER_PAGE = 8;
 axios.defaults.baseURL = 'https://paw-hut.b.goit.study';
+
 export const API_ENDPOINTS = {
   CATEGORIES: '/api/categories',
   ANIMALS: '/api/animals',
 };
+
 const BREAKPOINTS = {
   desktop: 1440,
   tablet: 768,
   mobile: 375,
 };
+
 export const refs = {
   categoriesList: document.querySelector('.js-categories'),
   animalsList: document.querySelector('.js-animals-list'),
   loader: document.querySelector('.loader'),
   loadMoreBtn: document.querySelector('.js-more-btn'),
 };
+
 const container = document.getElementById('tui-pagination-container');
 let currentCategory = '';
 let currentPage = 0;
