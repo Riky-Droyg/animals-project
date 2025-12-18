@@ -1,52 +1,10 @@
-.ac {
-  max-width: 280px;
-  margin: 0 auto;
-  background: #eee9e3;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.ac-question {
-  display: block;
-  max-width: calc(280px - 48px - 24px - 20px);
-
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #02060a;
-}
-
-.faq {
-  padding-top: 64px;
-  padding-bottom: 64px;
-}
-
-.ac-trigger {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 20px 24px;
-  border: none;
-  text-align: left;
-  background-color: #eee9e3;
-  border: none;
-  border-radius: 8px;
-}
-
-.ac-trigger .icon {
-  flex-shrink: 0;
-}
-
-.icon-close {
-  display: none;
+.faq-container {
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .faq-title {
   font-family: 'Open Sans', sans-serif;
-
   font-weight: 700;
   font-size: 36px;
   line-height: 1.2;
@@ -56,124 +14,82 @@
   margin-bottom: 40px;
 }
 
-.accordion-container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.ac__custom {
+  background-color: #EEE9E3 !important;
+  margin-bottom: 16px !important;
 }
 
-.ac-text-list {
-  list-style: decimal;
-  padding: 0 24px;
-  margin: 5px 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+.ac-question {}
 
-.ac-text {
+.ac .ac-trigger.ac-trigger__custom {
+  padding: 20px 72px 20px 24px;
   font-family: 'IBM Plex Sans', sans-serif;
-
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #02060a;
-}
-
-.ac-text-sec {
-  font-family: 'IBM Plex Sans', sans-serif;
-  margin-top: 5px;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #02060a;
-}
-
-.ac-text-list-item {
-  font-family: 'IBM Plex Sans', sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.5;
-  color: #02060a;
-}
-
-.ac-panel {
-  overflow: hidden;
-  transition-property: height;
-  transition-duration: 300ms;
-  transition-timing-function: ease;
-}
-.ac.is-active .ac-panel {
-  padding: 0 24px 24px;
-}
-.ac-text-list-sec {
-  list-style: disc;
-}
-
-.ac-title {
-  font-family: 'Open Sans', sans-serif;
   font-weight: 700;
-  font-size: 36px;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  text-align: center;
+  font-size: 16px;
+  line-height: 1.5;
   color: #02060a;
-}
-
-@media (min-width: 375px) {
-  .ac {
-    max-width: 335px;
-  }
-
-  .ac-question {
-    max-width: 239px;
-  }
-}
-
-@media (min-width: 768px) {
-  .ac {
-    max-width: 704px;
-  }
-
-  .ac-question {
-    max-width: 608px;
-    font-size: 16px;
-  }
-
-  .faq-title {
-    margin-bottom: 80px;
-  }
 }
 
 @media (min-width: 1440px) {
-  .faq {
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
-
-  .ac {
-    max-width: 864px;
-  }
-
-  .ac-question {
-    max-width: 768px;
+  .ac .ac-trigger.ac-trigger__custom {
     font-size: 18px;
   }
+}
 
-  .faq-title {
-    font-size: 48px;
+.ac .ac-trigger.ac-trigger__custom:focus {
+  color: #02060a;
+}
+
+.ac .ac-trigger::after {
+  right: 29px !important;
+}
+
+@media (min-width: 768px) {
+  .ac .ac-trigger::after {
+    right: 24px !important;
   }
+}
 
-  .accordion-container {
-    max-width: 864px;
-    margin: 0 auto;
-  }
+.ac-panel__custom-wrapper {
+  padding: 0px 24px 24px 24px;
 
-  .ac-text-list-item {
+}
+
+.ac .ac-panel.ac-panel__custom {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #02060a;
+}
+
+@media (min-width: 1440px) {
+  .ac .ac-panel.ac-panel__custom {
     font-size: 16px;
   }
+}
 
-  .ac-text {
-    font-size: 16px;
-  }
+.ac .ac-panel .ac-text.ac-text__custom {
+  padding: 0;
+  margin-bottom: 20px;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #02060a;
+}
+
+.ac-panel__custom-wrapper ol {
+  list-style-type: decimal !important;
+  padding-left: 24px;
+
+}
+
+.ac-panel__custom-wrapper ul {
+  list-style-type: disc !important;
+  padding-left: 24px;
+}
+
+.ac-panel__custom-wrapper li:not(:last-child) {
+  margin-bottom: 20px;
 }
