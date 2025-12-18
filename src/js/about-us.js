@@ -1,4 +1,4 @@
-import mobile1 from '../img/about-us/webp/mobile/mobile-slide-1-min.webp';
+// import mobile1 from '../img/about-us/webp/mobile/mobile-slide-1-min.webp';
 import mobile1x2 from '../img/about-us/webp/mobile/mobile-slide-1@2x-min.webp';
 import mobile2 from '../img/about-us/webp/mobile/mobile-slide-2-min.webp';
 import mobile2x2 from '../img/about-us/webp/mobile/mobile-slide-2@2x-min.webp';
@@ -34,33 +34,33 @@ import desktop5x2 from '../img/about-us/webp/desktop/desktop-slide-5@2x-min.webp
 import arrowLeft from '../img/SVG-sprite/arrow-left.svg';
 import arrowRight from '../img/SVG-sprite/arrow-right.svg';
 
-const slides = [
-  {
-    mob: `${mobile1} 1x, ${mobile1x2} 2x`,
-    tab: `${tablet1} 1x, ${tablet1x2} 2x`,
-    desk: `${desktop1} 1x, ${desktop1x2} 2x`,
-  },
-  {
-    mob: `${mobile2} 1x, ${mobile2x2} 2x`,
-    tab: `${tablet2} 1x, ${tablet2x2} 2x`,
-    desk: `${desktop2} 1x, ${desktop2x2} 2x`,
-  },
-  {
-    mob: `${mobile3} 1x, ${mobile3x2} 2x`,
-    tab: `${tablet3} 1x, ${tablet3x2} 2x`,
-    desk: `${desktop3} 1x, ${desktop3x2} 2x`,
-  },
-  {
-    mob: `${mobile4} 1x, ${mobile4x2} 2x`,
-    tab: `${tablet4} 1x, ${tablet4x2} 2x`,
-    desk: `${desktop4} 1x, ${desktop4x2} 2x`,
-  },
-  {
-    mob: `${mobile5} 1x, ${mobile5x2} 2x`,
-    tab: `${tablet5} 1x, ${tablet5x2} 2x`,
-    desk: `${desktop5} 1x, ${desktop5x2} 2x`,
-  },
-];
+// const slides = [
+//   {
+//     mob: `${mobile1} 1x, ${mobile1x2} 2x`,
+//     tab: `${tablet1} 1x, ${tablet1x2} 2x`,
+//     desk: `${desktop1} 1x, ${desktop1x2} 2x`,
+//   },
+//   {
+//     mob: `${mobile2} 1x, ${mobile2x2} 2x`,
+//     tab: `${tablet2} 1x, ${tablet2x2} 2x`,
+//     desk: `${desktop2} 1x, ${desktop2x2} 2x`,
+//   },
+//   {
+//     mob: `${mobile3} 1x, ${mobile3x2} 2x`,
+//     tab: `${tablet3} 1x, ${tablet3x2} 2x`,
+//     desk: `${desktop3} 1x, ${desktop3x2} 2x`,
+//   },
+//   {
+//     mob: `${mobile4} 1x, ${mobile4x2} 2x`,
+//     tab: `${tablet4} 1x, ${tablet4x2} 2x`,
+//     desk: `${desktop4} 1x, ${desktop4x2} 2x`,
+//   },
+//   {
+//     mob: `${mobile5} 1x, ${mobile5x2} 2x`,
+//     tab: `${tablet5} 1x, ${tablet5x2} 2x`,
+//     desk: `${desktop5} 1x, ${desktop5x2} 2x`,
+//   },
+// ];
 
 import Swiper from 'swiper';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -68,16 +68,16 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-const swiperSlides = document.querySelectorAll(
-  '.about-swiper .about-swiper-slide'
-);
+// const swiperSlides = document.querySelectorAll(
+//   '.about-swiper .about-swiper-slide'
+// );
 
-swiperSlides.forEach((slide, index) => {
-  const picture = slide.querySelector('picture');
-  picture.querySelector('.img-desktop').srcset = slides[index].desk;
-  picture.querySelector('.img-tablet').srcset = slides[index].tab;
-  picture.querySelector('.img-mobile').srcset = slides[index].mob;
-});
+// swiperSlides.forEach((slide, index) => {
+//   const picture = slide.querySelector('picture');
+//   picture.querySelector('.img-desktop').srcset = slides[index].desk;
+//   picture.querySelector('.img-tablet').srcset = slides[index].tab;
+//   picture.querySelector('.img-mobile').srcset = slides[index].mob;
+// });
 
 const aboutSwiper = new Swiper('.about-swiper', {
   modules: [Navigation, Pagination],
@@ -85,10 +85,6 @@ const aboutSwiper = new Swiper('.about-swiper', {
   loop: false,
 
   slidesPerView: 1,
-
-  // spaceBetween: 20,
-  // centeredSlides: false,
-  // watchOverflow: true,
 
   pagination: {
     el: '.about-swiper-pagination',
@@ -138,7 +134,7 @@ function fixPagination(swiper) {
   el.style.position = 'static';
 }
 
-const btnPrev = document.querySelector('.about-swiper-button-prev img');
-const btnNext = document.querySelector('.about-swiper-button-next img');
-btnPrev.src = arrowLeft;
-btnNext.src = arrowRight;
+// const btnPrev = document.querySelector('.about-swiper-button-prev img');
+// const btnNext = document.querySelector('.about-swiper-button-next img');
+// btnPrev.src = arrowLeft;
+// btnNext.src = arrowRight;
