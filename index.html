@@ -8,9 +8,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Хатинка Лапок</title>
   <script type="module" crossorigin src="/animals-project/index.js"></script>
-  <link rel="modulepreload" crossorigin href="/animals-project/assets/vendor-Cb7VvBBu.js">
-  <link rel="stylesheet" crossorigin href="/animals-project/assets/vendor-BfPs2Zf6.css">
-  <link rel="stylesheet" crossorigin href="/animals-project/assets/index-Cz3_c8WF.css">
+  <link rel="modulepreload" crossorigin href="/animals-project/assets/vendor-BY8E1jXr.js">
+  <link rel="stylesheet" crossorigin href="/animals-project/assets/vendor-C9u8Xydv.css">
+  <link rel="stylesheet" crossorigin href="/animals-project/assets/index-k_UUImuW.css">
 </head>
 
 <body>
@@ -65,7 +65,20 @@
   </div>
 </section>
 
-    
+    <section class="pets-list" id="pets-list">
+  <div class="container">
+    <h2 class="pets-list__title">Наші хвостики</h2>
+    <p class="pets-list__subtitle">Вони дуже чекають на знайомство з вами</p>
+    <ul class="pets-list__categories js-categories"></ul>
+     <span class="loader is-hidden"></span>
+    <ul class="pets-list__cards js-animals-list"></ul>
+    <button type="button" class="load-more-btn js-more-btn">
+      Показати більше
+    </button>
+    <div id="tui-pagination-container" class="tui-pagination"></div>
+  </div>
+</section>
+
     
     <section class="faq">
   <div class="container faq-container">
@@ -261,7 +274,17 @@
   </div>
 </section>
     
-    
+    <div class="backdrop">
+  <div class="modal">
+    <button type="button" class="modal__close-btn js-close-btn">
+      <svg class="modal__close-icon" width="24" height="24">
+        <use href="#icon-icon-close"></use>
+      </svg>
+    </button>
+    <div class="js-modal-content modal__content"></div>
+  </div>
+</div>
+
     
   </main>
 
