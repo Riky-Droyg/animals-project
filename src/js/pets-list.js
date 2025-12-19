@@ -3,6 +3,7 @@ import iziToast from 'izitoast';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 
+
 /* #region  global variables */
 let ITEMS_PER_PAGE = 8;
 axios.defaults.baseURL = 'https://paw-hut.b.goit.study';
