@@ -1,4 +1,17 @@
-.success-stories {}
+.success-stories {
+    padding-top: 64px;
+    padding-bottom: 64px;
+
+}
+
+
+@media (min-width: 1440px) {
+    .success-stories {
+        padding-top: 80px;
+        padding-bottom: 80px;
+
+    }
+}
 
 .success-stories__wrapper {}
 
