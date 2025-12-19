@@ -1,13 +1,18 @@
 .hero-section {
   position: relative;
   background-color: #111;
-  background-image: image-set(
-    url('../img/hero/hero-mobile@1x.webp') 1x,
-    url('../img/hero/hero-mobile@2x.webp') 2x
-  );
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: right center;
+  overflow: hidden;
+}
+
+/* фонова картинка як img (для LCP) */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+  z-index: 0;
 }
 
 /* затемнення на всю ширину секції */
@@ -22,12 +27,13 @@
     rgba(0, 0, 0, 0.35) 45%,
     rgba(0, 0, 0, 0.12) 100%
   );
+  z-index: 1;
 }
 
 /* контейнер тільки для контенту */
 .hero-container {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 
   min-height: 480px;
   padding-top: 64px;
@@ -75,7 +81,7 @@
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
-  white-space: nowrap; 
+  white-space: nowrap;
   transition: background-color 0.2s ease, border-color 0.2s ease,
     box-shadow 0.15s ease, color 0.2s ease;
 }
@@ -85,6 +91,7 @@
   background: #eee9e3;
   color: #02060a;
 }
+
 .hero-btn-link:active {
   background: #eee9e3;
   color: #02060a;
@@ -102,12 +109,8 @@
 }
 
 @media (min-width: 768px) {
-  .hero-section {
-    background-image: image-set(
-      url('../img/hero/hero-tablet@1x.webp') 1x,
-      url('../img/hero/hero-tablet@2x.webp') 2x
-    );
-    background-position: center;
+  .hero-bg {
+    object-position: center;
   }
 
   .hero-container {
@@ -124,13 +127,6 @@
 }
 
 @media (min-width: 1440px) {
-  .hero-section {
-    background-image: image-set(
-      url('../img/hero/hero-desktop@1x.webp') 1x,
-      url('../img/hero/hero-desktop@2x.webp') 2x
-    );
-  }
-
   .hero-container {
     min-height: 900px;
     padding-top: 128px;

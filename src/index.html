@@ -9,7 +9,26 @@
   <link rel="icon" href="/favicon-dark.svg" media="(prefers-color-scheme: dark)">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Хатинка Лапок</title>
-  <link rel="stylesheet" href="/css/styles.css" />
+
+
+
+  <link rel="stylesheet" href="/css/critical-styles.css" />
+
+  <link rel="stylesheet" href="/css/styles.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="/css/styles.css">
+  </noscript>
+  <link rel="preload" as="image" href="/img/hero/hero-mobile@2x.webp"
+    imagesrcset="/img/hero/hero-mobile@1x.webp 1x, /img/hero/hero-mobile@2x.webp 2x" imagesizes="100vw"
+    fetchpriority="high" />
+  <link rel="preload" href="/fonts/IBMPlexSans-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/OpenSans-Bold.woff2" as="font" type="font/woff2" crossorigin>
+
+
+
+
+
+
 </head>
 
 <body>
