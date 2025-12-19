@@ -12,9 +12,12 @@ const modalRefs = {
   body: document.body,
   html: document.documentElement,
 }
-
+function onEscKeydown(e) {
+  if (e.key === 'Escape') hideDetailsModal();
+}
 function showDetailsModal(markup = '') {
   if (!modalRefs.backdrop || !modalRefs.modalContent) return
+  document.addEventListener('keydown', onEscKeydown);
   modalRefs.backdrop.classList.add('is-open')
   modalRefs.body.classList.add('no-scroll')
   modalRefs.html.classList.add('no-scroll')
@@ -27,6 +30,7 @@ function hideDetailsModal() {
   modalRefs.body.classList.remove('no-scroll')
   modalRefs.html.classList.remove('no-scroll')
   modalRefs.modalContent.innerHTML = ''
+  document.removeEventListener('keydown', onEscKeydown)
 }
 
 refs.animalsList?.addEventListener('click', handleModalDetailsOpened)
@@ -37,16 +41,10 @@ modalRefs.backdrop?.addEventListener('click', e => {
   if (e.target === modalRefs.backdrop) hideDetailsModal()
 })
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && modalRefs.backdrop?.classList.contains('is-open')) {
-    hideDetailsModal()
-  }
-})
-
 async function handleModalDetailsOpened(event) {
   const btn = event.target.closest('button[data-id]')
   if (!btn) return
-
+document.addEventListener('keydown', onEscKeydown);
   const id = btn.dataset.id
 
   try {
