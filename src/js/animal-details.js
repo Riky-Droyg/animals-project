@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { API_ENDPOINTS, refs } from './pets-list'
 import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css';
 import { openModal } from './order-modal'
 
 const MAX_LIMIT = 30

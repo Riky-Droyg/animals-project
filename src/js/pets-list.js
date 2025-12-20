@@ -1,5 +1,6 @@
 import axios from 'axios';
 import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 
@@ -24,6 +25,7 @@ export const refs = {
   animalsList: document.querySelector('.js-animals-list'),
   loader: document.querySelector('.loader'),
   loadMoreBtn: document.querySelector('.js-more-btn'),
+  sectionPetsList: document.querySelector('#pets-list'),
 };
 
 const container = document.getElementById('tui-pagination-container');
@@ -64,8 +66,25 @@ function createPaginationOptions(totalItems) {
     visiblePages: 4,
     page: currentPage,
     centerAlign: true,
+    template: {
+         page: '<button type="button" class="tui-page-btn">{{page}}</button>',
+         currentPage: '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+         moveButton:
+             '<button type="button" class="tui-page-btn tui-{{type}}">' +
+      '<span class="tui-ico-{{type}}"></span>' +
+    '</button>',
+         disabledMoveButton:
+             '<button type="button" class="tui-page-btn tui-is-disabled tui-{{type}}">' +
+                 '<span class="tui-ico-{{type}}">{{type}}</span>' +
+             '</button>',
+         moreButton:
+             '<button type="button" class="tui-page-btn tui-{{type}}-is-ellip">' +
+                 '<span class="tui-ico-ellip">...</span>' +
+             '</button>'
+     }
+};
   };
-}
+
 function destroyPagination() {
   if (!paginationInstance) return;
 
@@ -84,6 +103,10 @@ function initPagination(totalItems) {
   paginationInstance.on('afterMove', async event => {
     currentPage = event.page;
     await loadAnimals(currentCategory, currentPage);
+    refs.sectionPetsList.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
   });
 }
 /* #region  handler-functions */
@@ -120,9 +143,8 @@ async function initHomepage() {
 async function handleResize() {
   const prevMode = lastMode;
   const prevItemsPerPage = ITEMS_PER_PAGE;
-  destroyPagination();
-  hideLoadMoreBtn();
   setItemsPerPage();
+  destroyPagination();
   const currentMode = isPaginationMode();
   if (prevMode !== currentMode ||
     prevItemsPerPage !== ITEMS_PER_PAGE) {
@@ -156,6 +178,10 @@ async function handleAnimalsFilteredByCategory(event) {
   try {
     const totalItems = await loadAnimals(currentCategory, currentPage);
     updateCategoryButtons(category);
+    refs.animalsList.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
     if (isPaginationMode()) {
       initPagination(totalItems);
     } else {
@@ -253,7 +279,6 @@ async function getAnimalsByCategory(category, page = 1) {
 async function loadAnimals(category, page) {
  hideLoadMoreBtn();
   showLoader();
-  container.classList.add('is-hidden');
   const paginationActive = isPaginationMode();
   try {
     let data;
