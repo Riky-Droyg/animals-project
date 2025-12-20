@@ -1,8 +1,8 @@
 import axios from 'axios';
 import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
-
 
 /* #region  global variables */
 let ITEMS_PER_PAGE = 8;
@@ -24,6 +24,7 @@ export const refs = {
   animalsList: document.querySelector('.js-animals-list'),
   loader: document.querySelector('.loader'),
   loadMoreBtn: document.querySelector('.js-more-btn'),
+  sectionPetsList: document.querySelector('#pets-list'),
 };
 
 const container = document.getElementById('tui-pagination-container');
@@ -45,6 +46,9 @@ function debounce(func, delay) {
     }, delay);
   };
 }
+function setLoadingState(isLoading) {
+  refs.sectionPetsList.classList.toggle('is-loading', isLoading);
+}
 function isPaginationMode() {
   return window.innerWidth >= BREAKPOINTS.tablet;
 }
@@ -64,8 +68,26 @@ function createPaginationOptions(totalItems) {
     visiblePages: 4,
     page: currentPage,
     centerAlign: true,
+    template: {
+      page: '<button type="button" class="tui-page-btn">{{page}}</button>',
+      currentPage:
+        '<strong class="tui-page-btn tui-is-selected">{{page}}</strong>',
+      moveButton:
+        '<button type="button" class="tui-page-btn tui-{{type}}">' +
+        '<span class="tui-ico-{{type}}"></span>' +
+        '</button>',
+      disabledMoveButton:
+        '<button type="button" class="tui-page-btn tui-is-disabled tui-{{type}}">' +
+        '<span class="tui-ico-{{type}}">{{type}}</span>' +
+        '</button>',
+      moreButton:
+        '<button type="button" class="tui-page-btn tui-{{type}}-is-ellip">' +
+        '<span class="tui-ico-ellip">...</span>' +
+        '</button>',
+    },
   };
 }
+
 function destroyPagination() {
   if (!paginationInstance) return;
 
@@ -84,63 +106,56 @@ function initPagination(totalItems) {
   paginationInstance.on('afterMove', async event => {
     currentPage = event.page;
     await loadAnimals(currentCategory, currentPage);
+    refs.sectionPetsList.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
   });
 }
+function togglePagination(totalItems) {
+  if (isPaginationMode()) {
+    hideLoadMoreBtn();
+    container.classList.remove('is-hidden');
+    initPagination(totalItems);
+  } else {
+    destroyPagination();
+    container.classList.add('is-hidden');
+
+    currentPage = 2;
+    checkAndToggleLoadMoreBtn();
+  }
+}
+
 /* #region  handler-functions */
 async function initHomepage() {
-     hideLoadMoreBtn();
+  hideLoadMoreBtn();
+  clearAnimals();
   currentCategory = 'Всі';
   currentPage = 1;
   setItemsPerPage();
-  clearAnimals();
-  showLoader();
-  if (!isPaginationMode()) {
-    container.classList.add('is-hidden');
-  }
   lastMode = isPaginationMode();
   try {
     const categories = await getCategories();
     renderCategories(categories);
     const totalItems = await loadAnimals(currentCategory, currentPage);
     updateCategoryButtons('Всі');
-    if (isPaginationMode()) {
-      container.classList.remove('is-hidden');
-      initPagination(totalItems);
-    } else {
-      container.classList.add('is-hidden');
-      currentPage += 1;
-      checkAndToggleLoadMoreBtn();
-    }
+    togglePagination(totalItems);
   } catch (error) {
     throw error;
-  } finally {
-    hideLoader();
-  }
+}
 }
 async function handleResize() {
   const prevMode = lastMode;
   const prevItemsPerPage = ITEMS_PER_PAGE;
-  destroyPagination();
-  hideLoadMoreBtn();
   setItemsPerPage();
   const currentMode = isPaginationMode();
-  if (prevMode !== currentMode ||
-    prevItemsPerPage !== ITEMS_PER_PAGE) {
+  if (prevMode !== currentMode || prevItemsPerPage !== ITEMS_PER_PAGE) {
     clearAnimals();
     currentPage = 1;
     const totalItems = await loadAnimals(currentCategory, currentPage);
-    if (currentMode) {
-      container.classList.remove('is-hidden');
-      hideLoadMoreBtn();
-      initPagination(totalItems);
-    } else {
-      destroyPagination();
-      container.classList.add('is-hidden');
-      currentPage += 1;
-      checkAndToggleLoadMoreBtn();
-    }
+    togglePagination(totalItems);
+    lastMode = currentMode;
   }
-  lastMode = currentMode;
 }
 async function handleAnimalsFilteredByCategory(event) {
   if (event.target.nodeName !== 'BUTTON') {
@@ -148,32 +163,31 @@ async function handleAnimalsFilteredByCategory(event) {
   }
   setItemsPerPage();
   currentPage = 1;
-  destroyPagination();
-   hideLoadMoreBtn();
-  clearAnimals();
   const category = event.target.textContent.trim();
   currentCategory = category;
+  hideLoadMoreBtn();
+  destroyPagination();
+  clearAnimals();
   try {
     const totalItems = await loadAnimals(currentCategory, currentPage);
     updateCategoryButtons(category);
-    if (isPaginationMode()) {
-      initPagination(totalItems);
-    } else {
-      currentPage += 1;
-      checkAndToggleLoadMoreBtn();
-    }
+    togglePagination(totalItems);
+    refs.animalsList.scrollIntoView({
+      behavior: 'smooth',
+    });
   } catch (error) {
     throw error;
-  } finally {
-    hideLoader();
-  }
+}
 }
 async function handleLoadMoreBtnClicked() {
   if (isPaginationMode()) return;
-  hideLoadMoreBtn();
+  refs.loadMoreBtn.classList.remove('load-more-btn:active');
   setItemsPerPage();
   try {
     await loadAnimals(currentCategory, currentPage);
+    // window.scrollBy({
+    //   behavior: 'smooth'
+    // });
     currentPage += 1;
   } catch (error) {
     throw error;
@@ -251,10 +265,8 @@ async function getAnimalsByCategory(category, page = 1) {
 }
 /* #endregion */
 async function loadAnimals(category, page) {
- hideLoadMoreBtn();
+  setLoadingState(true);
   showLoader();
-  container.classList.add('is-hidden');
-  const paginationActive = isPaginationMode();
   try {
     let data;
     const targetCategory = category || currentCategory;
@@ -266,21 +278,19 @@ async function loadAnimals(category, page) {
     const { animals, totalItems } = data;
     totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
     const animalsMarkup = renderAnimals(animals);
-    if (paginationActive) {
+    if (isPaginationMode()) {
       refs.animalsList.innerHTML = animalsMarkup;
-      container.classList.remove('is-hidden');
-      hideLoadMoreBtn();
     } else {
       refs.animalsList.insertAdjacentHTML('beforeend', animalsMarkup);
-      container.classList.add('is-hidden');
-      checkAndToggleLoadMoreBtn();
     }
+    await new Promise(requestAnimationFrame);
     return totalItems;
   } catch (error) {
     hideLoadMoreBtn();
     throw error;
   } finally {
     hideLoader();
+    setLoadingState(false);
   }
 }
 /* #region  renderfunctions */
@@ -314,8 +324,8 @@ function renderAnimals(animals) {
           category =>
             `<li class="pets-list__card--category">${category.name}</li>`
         )
-        .join('')
-    return  `
+        .join('');
+      return `
             <li class="pets-list__card">
             <img class = "pets-list__card--image" src="${image}" alt="${name}" "lazy-loading">
         <p class="pets-list__card--specie">${species}</p>

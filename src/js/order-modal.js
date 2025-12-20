@@ -1,6 +1,7 @@
 import axios from 'axios';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import { btnTop } from './scroll-btn';
 
 
 const modal = document.querySelector('.order-modal__backdrop');

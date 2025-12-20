@@ -1,7 +1,9 @@
 import axios from 'axios'
 import { API_ENDPOINTS, refs } from './pets-list'
 import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css';
 import { openModal } from './order-modal'
+import { btnTop } from './scroll-btn';
 
 const MAX_LIMIT = 30
 
@@ -12,12 +14,16 @@ const modalRefs = {
   body: document.body,
   html: document.documentElement,
 }
-
+function onEscKeydown(e) {
+  if (e.key === 'Escape') hideDetailsModal();
+}
 function showDetailsModal(markup = '') {
   if (!modalRefs.backdrop || !modalRefs.modalContent) return
+  document.addEventListener('keydown', onEscKeydown);
   modalRefs.backdrop.classList.add('is-open')
   modalRefs.body.classList.add('no-scroll')
   modalRefs.html.classList.add('no-scroll')
+  btnTop.classList.add('is-hidden');
   modalRefs.modalContent.innerHTML = markup
 }
 
@@ -27,6 +33,8 @@ function hideDetailsModal() {
   modalRefs.body.classList.remove('no-scroll')
   modalRefs.html.classList.remove('no-scroll')
   modalRefs.modalContent.innerHTML = ''
+  document.removeEventListener('keydown', onEscKeydown)
+  btnTop.classList.remove('is-hidden')
 }
 
 refs.animalsList?.addEventListener('click', handleModalDetailsOpened)
@@ -37,16 +45,11 @@ modalRefs.backdrop?.addEventListener('click', e => {
   if (e.target === modalRefs.backdrop) hideDetailsModal()
 })
 
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && modalRefs.backdrop?.classList.contains('is-open')) {
-    hideDetailsModal()
-  }
-})
-
 async function handleModalDetailsOpened(event) {
   const btn = event.target.closest('button[data-id]')
   if (!btn) return
-
+  btnTop.classList.add('is-hidden');
+document.addEventListener('keydown', onEscKeydown);
   const id = btn.dataset.id
 
   try {
