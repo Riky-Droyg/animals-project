@@ -189,6 +189,9 @@ async function handleLoadMoreBtnClicked() {
     //   behavior: 'smooth'
     // });
     currentPage += 1;
+    if (currentPage > totalPages) {
+      checkAndToggleLoadMoreBtn();
+    }
   } catch (error) {
     throw error;
   }
