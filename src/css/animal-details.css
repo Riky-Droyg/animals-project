@@ -52,15 +52,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: 4px;
+  width: 24px;
+  height: 24px;
+  padding: 0px;
   border: none;
   background-color: transparent;
 }
 
 .modal__close-icon {
   fill: #02060a;
+}
+
+.modal__close-btn:hover,
+.modal__close-btn:focus {
+  border: 1px solid #88765c;
+  border-radius: 50%;
+  background-color: #eee9e3;
+  transition: background-color 250ms ease-in-out, border 250ms ease-in-out;
 }
 
 /* Content layout */
