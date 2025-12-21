@@ -33,6 +33,12 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
+   overflow-x: auto;
+  white-space: nowrap;
+    padding-inline: 16px;
+     scroll-padding-inline: 16px;   
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
 }
 
 .footer__nav-item,
@@ -42,6 +48,7 @@
   font-size: 12px;
   line-height: 1.5;
   color: #02060a;
+  scroll-snap-align: start;
 }
 
 .footer__nav-link {

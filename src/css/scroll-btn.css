@@ -13,7 +13,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border: none;
   transition: all 250ms ease-in-out;
-  z-index: 1000;
+  z-index: 999;
 }
 .scroll__btn:active {
   background-color: rgba(246, 244, 241, 0.9);
@@ -24,6 +24,7 @@
     fill: #332C22;
  }
 .is-hidden {
+  display: none;
   opacity: 0;
   visibility: hidden;
 }

@@ -33,6 +33,7 @@ const refs = {
 
 export function openModal() {
   refs.orderModal.classList.add('is-open');
+  btnTop.classList.add('is-hidden');
   refs.body.classList.add('no-scroll');
   refs.html.classList.add('no-scroll');
   document.addEventListener('keydown', onEscKeydown);
@@ -40,6 +41,7 @@ export function openModal() {
 
 function closeModal() {
   refs.orderModal.classList.remove('is-open');
+  btnTop.classList.remove('is-hidden');
   refs.body.classList.remove('no-scroll');
   refs.html.classList.remove('no-scroll');
   document.removeEventListener('keydown', onEscKeydown);
