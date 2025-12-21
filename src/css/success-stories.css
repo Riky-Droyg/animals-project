@@ -10,8 +10,7 @@
   }
 }
 
-.success-stories-slide__wrapper {
-}
+
 
 .success-stories__header {
   font-family: 'Open Sans', sans-serif;
@@ -38,25 +37,10 @@
   width: 100%;
 }
 
-.swiper {
-}
-
-.swiper-wrapper {
-}
-
-.success-stories__slides {
-}
-
-.swiper-slide {
-}
-
 .swiper-slide.success-stories__slide {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.swiper-pagination {
 }
 
 .success-stories__nav {
@@ -70,21 +54,6 @@
 .success-stories__nav-buttons {
   gap: 16px;
   display: flex;
-}
-
-.swiper-button-prev {
-}
-
-.success-stories__btn {
-}
-
-.success-stories__btn--prev {
-}
-
-.swiper-button-next {
-}
-
-.success-stories__btn--next {
 }
 
 .success-stories__controls {
@@ -158,10 +127,6 @@
   font-size: 14px;
   line-height: 150%;
   letter-spacing: 0%;
-}
-
-.success-stories__slide-rate {
-  /* margin-bottom: 32px; */
 }
 
 .js-rating {
