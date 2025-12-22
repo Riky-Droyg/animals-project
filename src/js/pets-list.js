@@ -142,7 +142,7 @@ async function initHomepage() {
     togglePagination(totalItems);
   } catch (error) {
     throw error;
-}
+  }
 }
 async function handleResize() {
   const prevMode = lastMode;
@@ -177,7 +177,7 @@ async function handleAnimalsFilteredByCategory(event) {
     });
   } catch (error) {
     throw error;
-}
+  }
 }
 async function handleLoadMoreBtnClicked() {
   if (isPaginationMode()) return;
@@ -336,6 +336,9 @@ function renderAnimals(animals) {
     alt="Фото: ${name}"
     loading="lazy"
     decoding="async"
+    width="311"
+  height="311"
+    
   >
 
   <p class="pets-list__card--specie">${species}</p>

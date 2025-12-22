@@ -111,6 +111,8 @@ function renderAnimal(animal) {
   alt="Фото: ${animal.name}"
   class="modal__image"
   loading="lazy"
+  width="295"
+  height="295"
 >
 
 <div class="modal__animal-description">
