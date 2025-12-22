@@ -12,6 +12,9 @@ import{a as f,i as v,P as le,S as X,N as ce,b as de,A as ue,R as me,c as pe,d as
     alt="Фото: ${n}"
     loading="lazy"
     decoding="async"
+    width="311"
+  height="311"
+    
   >
 
   <p class="pets-list__card--specie">${i}</p>
@@ -63,6 +66,8 @@ import{a as f,i as v,P as le,S as X,N as ce,b as de,A as ue,R as me,c as pe,d as
   alt="Фото: ${e.name}"
   class="modal__image"
   loading="lazy"
+  width="295"
+  height="295"
 >
 
 <div class="modal__animal-description">
