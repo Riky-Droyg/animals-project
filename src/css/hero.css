@@ -156,7 +156,7 @@
 
 @media (min-width: 1440px) {
   .hero {
-    max-width: 1440px;
+    /* manx-width: 1440px; */
     margin: 0 auto;
   }
   .hero__content {
