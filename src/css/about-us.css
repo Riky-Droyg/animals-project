@@ -4,6 +4,9 @@
 
 .about-us-section {
   overflow: visible;
+  padding-top: 64px;
+  padding-bottom: 64px;
+
 }
 
 .about-container {
@@ -11,8 +14,8 @@
 }
 
 .about-us-title {
-  padding-top: 64px;
-  padding-bottom: 40px;
+
+  margin-bottom: 40px;
   font-size: 36px;
   line-height: 120%;
   letter-spacing: -0.01em;
@@ -37,11 +40,9 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 18%,
-    rgba(0, 0, 0, 0.6) 63%
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, 0) 18%,
+      rgba(0, 0, 0, 0.6) 63%);
 }
 
 .about-swiper-slide picture,
@@ -104,9 +105,8 @@
   justify-content: space-between;
 
   width: 100%;
-  padding: 8px 8px 8px 0;
+  /* padding: 8px 8px 8px 0; */
   margin-top: 24px;
-  margin-bottom: 64px;
 }
 
 .about-swiper-buttons {
@@ -203,7 +203,7 @@
   }
 
   .about-controls {
-    padding: 8px;
+    /* padding: 8px; */
   }
 
   .about-swiper-pagination {
@@ -236,6 +236,12 @@
 ========================= */
 
 @media screen and (min-width: 1440px) {
+  .about-us-section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+
+  }
+
   .about-us-title {
     padding-top: 80px;
   }
@@ -256,7 +262,6 @@
 
   .about-controls {
     margin-top: 48px;
-    margin-bottom: 80px;
   }
 
   .about-swiper-button-prev,

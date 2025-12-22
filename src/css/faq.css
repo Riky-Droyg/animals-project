@@ -3,9 +3,16 @@
 ========================= */
 
 .faq {
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding: 64px 0;
 }
+
+.faq-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 
 .faq-title {
   margin-bottom: 40px;
@@ -99,6 +106,14 @@
 }
 
 @media (min-width: 1440px) {
+  .faq {
+    padding: 80px 0;
+  }
+
+  .accordion-container {
+    width: 865px;
+  }
+
   .ac .ac-trigger.ac-trigger__custom {
     font-size: 18px;
   }

@@ -16,17 +16,11 @@ body {
 
 /* базовий контейнер */
 .container {
-  width: 100%;
   margin-inline: auto;
   padding: 0 20px;
-  /* внутрішні поля зліва/справа */
-}
+  max-width: 375px;
 
-/* з 375px макет стає адаптивним */
-@media (min-width: 375px) {
-  .container {
-    max-width: 375px;
-  }
+  /* внутрішні поля зліва/справа */
 }
 
 /* tablet */

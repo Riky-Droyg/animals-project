@@ -1,4 +1,4 @@
-import { btnTop } from "./scroll-btn";
+import { btnTop } from './scroll-btn';
 
 const modalMenuHeader = document.querySelector('.modal-menu');
 const buttonHeaderBurger = document.querySelector('.header__burger');
@@ -15,8 +15,9 @@ function openMenu() {
   buttonHeaderBurger.classList.add('is-open');
   buttonHeaderBurger.setAttribute('aria-expanded', 'true');
   document.body.classList.add('no-scroll');
-btnTop.classList.add('is-hidden');
+  btnTop.classList.add('is-hidden');
   header?.classList.remove('header__blur');
+  addEventClouseEsc();
 }
 
 function closeMenu() {
@@ -26,6 +27,7 @@ function closeMenu() {
   btnTop.classList.remove('is-hidden');
   document.body.classList.remove('no-scroll');
   header?.classList.add('header__blur');
+  removeEventClouseEsc();
 }
 
 function toggleMenu() {
@@ -47,3 +49,16 @@ document.addEventListener('click', e => {
 
 links.forEach(link => link.addEventListener('click', closeMenu));
 modalMenuButton.addEventListener('click', closeMenu);
+
+function onEscClose(e) {
+  if (e.key !== 'Escape' && e.code !== 'Escape') return;
+  if (!isOpen()) return;
+  closeMenu();
+}
+
+function addEventClouseEsc() {
+  document.addEventListener('keydown', onEscClose);
+}
+function removeEventClouseEsc() {
+  document.removeEventListener('keydown', onEscClose);
+}

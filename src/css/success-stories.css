@@ -30,7 +30,6 @@
   line-height: 150%;
   letter-spacing: 0%;
   text-align: center;
-  margin-bottom: 40px;
 }
 
 .success-stories__container {
@@ -145,6 +144,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 40px;
+
 }
 
 @media (min-width: 1440px) {
