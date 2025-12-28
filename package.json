@@ -1,11 +1,11 @@
 {
-  "name": "animals-project",
+  "name": "paws-little-home",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/animals-project/",
+    "build": "vite build --base=/paws-little-home/",
     "preview": "vite preview"
   },
   "devDependencies": {
